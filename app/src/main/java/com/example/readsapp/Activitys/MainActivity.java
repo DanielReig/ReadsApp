@@ -1,7 +1,9 @@
-package com.example.readsapp;
+package com.example.readsapp.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.readsapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
