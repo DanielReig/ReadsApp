@@ -1,4 +1,4 @@
-#Mon Mar 09 16:41:23 CET 2020
-base.0=/Users/dani/Documents/ReadsApp/ReadApp/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Mon Mar 09 17:38:06 CET 2020
+base.0=C\:\\Users\\Usuario\\Documents\\GitHub\\ReadsApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
