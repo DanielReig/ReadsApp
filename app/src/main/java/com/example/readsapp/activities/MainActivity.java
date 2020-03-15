@@ -13,6 +13,7 @@ import com.example.readsapp.fragments.DiscoverFragment;
 import com.example.readsapp.fragments.ListsFragment;
 import com.example.readsapp.fragments.ProfileFragment;
 import com.example.readsapp.fragments.SearchFragment;
+import com.example.readsapp.services.OpenLibraryService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
