@@ -38,9 +38,9 @@ public class ListsFragment extends Fragment {
             @Override
             public void onItemClicked(int position) {
                 if (position != 0){
-                    //ListBookFragment fragment = new ListBookFragment();
+                    ListBookFragment fragment = new ListBookFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                  //  transaction.replace(R.id.fragment_container,fragment);
+                    transaction.replace(R.id.fragment_container,fragment);
                     transaction.commit();
                 }
             }
