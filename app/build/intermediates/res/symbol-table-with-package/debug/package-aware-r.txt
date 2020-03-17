@@ -992,6 +992,8 @@ dimen abc_text_size_subtitle_material_toolbar
 dimen abc_text_size_title_material
 dimen abc_text_size_title_material_toolbar
 dimen action_bar_size
+dimen activity_horizontal_margin
+dimen activity_vertical_margin
 dimen appcompat_dialog_background_inset
 dimen cardview_compat_inset_shadow
 dimen cardview_default_elevation
@@ -1231,6 +1233,10 @@ dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
 dimen test_mtrl_calendar_day_cornerSize
+dimen text_height
+dimen text_max
+dimen text_min
+dimen text_step
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -1592,6 +1598,8 @@ id profile_nav_item
 id progress_circular
 id progress_horizontal
 id radio
+id recyclerBook
+id recyclerlist
 id right
 id right_icon
 id right_side
@@ -1675,6 +1683,7 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tvItem
 id unchecked
 id uniform
 id unlabeled
@@ -1765,6 +1774,7 @@ layout design_text_input_start_icon
 layout fragment_challenges
 layout fragment_discover
 layout fragment_lists
+layout fragment_listsbook
 layout fragment_profile
 layout fragment_search
 layout mtrl_alert_dialog
@@ -1801,6 +1811,7 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout recycler_item
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material

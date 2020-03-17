@@ -3,6 +3,7 @@ package com.example.readsapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import com.example.readsapp.R;
 import com.example.readsapp.fragments.ChallengesFragment;
 import com.example.readsapp.fragments.DiscoverFragment;
+import com.example.readsapp.fragments.ListBookFragment;
 import com.example.readsapp.fragments.ListsFragment;
 import com.example.readsapp.fragments.ProfileFragment;
 import com.example.readsapp.fragments.SearchFragment;
@@ -17,6 +19,8 @@ import com.example.readsapp.services.OpenLibraryService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
+    public MainActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
 
-                    switch(item.getItemId()) {
+                    switch (item.getItemId()) {
                         case R.id.discover_nav_item:
                             selectedFragment = new DiscoverFragment();
                             break;
@@ -60,4 +64,5 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
 }
