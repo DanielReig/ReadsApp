@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ReadsApp</string>
+    <string name="name_author">Author : </string>
+    <string name="name_edition">Edition :</string>
+    <string name="name_year">Year :</string>
+    <string name="name_topic">Topic :</string>
+    <string name="name_code">Book code :</string>
+    <string name="name_summary">Summary :</string>
+    <string name="name_Calendar">Calendar</string>
 </resources>

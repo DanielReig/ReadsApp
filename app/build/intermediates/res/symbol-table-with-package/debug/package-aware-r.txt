@@ -766,6 +766,7 @@ color checkbox_themeable_attribute_color
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
+color color_texto_botones
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
 color design_dark_default_color_background
@@ -1347,6 +1348,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable drawable_botones
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
@@ -1459,6 +1461,7 @@ id all
 id always
 id async
 id auto
+id bCalen
 id barrier
 id beginning
 id blocking
@@ -1531,6 +1534,7 @@ id icon
 id icon_group
 id ifRoom
 id image
+id imageView
 id info
 id invisible
 id italic
@@ -1685,6 +1689,19 @@ id transition_scene_layoutid_cache
 id transition_transform
 id tvBooklist
 id tvItem
+id tvage_s
+id tvauthor
+id tvautor_s
+id tvcodeBook
+id tvedicion_s
+id tvedition
+id tvisbn_s
+id tvnamebook
+id tvsummary_s
+id tvsumnary
+id tvtopic
+id tvtopic_s
+id tvyear
 id unchecked
 id uniform
 id unlabeled
@@ -1772,6 +1789,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_book
 layout fragment_challenges
 layout fragment_discover
 layout fragment_lists
@@ -1909,6 +1927,13 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
+string name_Calendar
+string name_author
+string name_code
+string name_edition
+string name_summary
+string name_topic
+string name_year
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
