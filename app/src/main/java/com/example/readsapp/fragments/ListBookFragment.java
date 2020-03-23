@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
-import com.example.readsapp.adapters.AdapterList;
 import com.example.readsapp.adapters.AdapterListBook;
 import com.example.readsapp.interfaz.bookItem;
 
@@ -35,7 +35,7 @@ public class ListBookFragment extends Fragment {
         adapterb = new AdapterListBook(getContext(), listbook, new AdapterListBook.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                BookFragment fragment = new BookFragment();
+                BookFragment fragment = new BookFragment(false);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();

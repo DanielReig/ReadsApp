@@ -1505,6 +1505,7 @@ id direct
 id disableHome
 id discover_nav_item
 id dropdown_menu
+id editText
 id edit_query
 id end
 id enterAlways
@@ -1534,6 +1535,7 @@ id icon
 id icon_group
 id ifRoom
 id image
+id imageButton
 id imageView
 id info
 id invisible
@@ -1608,6 +1610,7 @@ id right
 id right_icon
 id right_side
 id rounded
+id rv_search
 id save_non_transition_alpha
 id save_overlay_view
 id scale
@@ -1671,7 +1674,6 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
-id textView2
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter
@@ -1691,6 +1693,7 @@ id transition_scene_layoutid_cache
 id transition_transform
 id tvBooklist
 id tvItem
+id tv_search
 id tvage_s
 id tvauthor
 id tvautor_s

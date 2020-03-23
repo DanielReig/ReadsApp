@@ -1,4 +1,4 @@
-#Sat Mar 21 16:21:31 CET 2020
-base.0=C\:\\Users\\Rocketman\\Documents\\GitHub\\ReadsApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Mon Mar 23 15:26:24 CET 2020
+base.0=C\:\\Users\\Usuario\\Documents\\GitHub\\ReadsApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
