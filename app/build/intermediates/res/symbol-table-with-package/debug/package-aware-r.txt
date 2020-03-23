@@ -766,6 +766,7 @@ color checkbox_themeable_attribute_color
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
+color colorSecond
 color color_texto_botones
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
@@ -1349,6 +1350,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable drawable_botones
+drawable esqunas_redondeadas
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
@@ -1467,6 +1469,9 @@ id beginning
 id blocking
 id bottom
 id bottom_navigation
+id button
+id button2
+id button3
 id buttonPanel
 id cancel_button
 id center
@@ -1479,6 +1484,8 @@ id checked
 id chip
 id chip_group
 id chronometer
+id clButton
+id cldatesUser
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -1506,6 +1513,8 @@ id disableHome
 id discover_nav_item
 id dropdown_menu
 id editText
+id editText2
+id editText3
 id edit_query
 id end
 id enterAlways
@@ -1537,6 +1546,7 @@ id ifRoom
 id image
 id imageButton
 id imageView
+id imageView2
 id info
 id invisible
 id italic
@@ -1674,6 +1684,8 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
+id textView2
+id textView4
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter
