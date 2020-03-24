@@ -7,4 +7,8 @@
     <string name="name_code">Book code :</string>
     <string name="name_summary">Summary :</string>
     <string name="name_Calendar">Calendar</string>
+    <string name="name_nameuser">User :</string>
+    <string name="name_age">Age :</string>
+    <string name="name_setting">Setting</string>
+    <string name="name_statistic">Statistics</string>
 </resources>

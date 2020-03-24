@@ -705,7 +705,7 @@ public final class R {
         public static final int add = 0x7f08003e;
         public static final int alertTitle = 0x7f08003f;
         public static final int async = 0x7f080042;
-        public static final int blocking = 0x7f080047;
+        public static final int blocking = 0x7f080048;
         public static final int buttonPanel = 0x7f08004d;
         public static final int checkbox = 0x7f080054;
         public static final int checked = 0x7f080055;
@@ -717,7 +717,7 @@ public final class R {
         public static final int decor_content_parent = 0x7f080068;
         public static final int default_activity_button = 0x7f080069;
         public static final int dialog_button = 0x7f08006f;
-        public static final int edit_query = 0x7f080078;
+        public static final int edit_query = 0x7f080076;
         public static final int expand_activities_button = 0x7f08007d;
         public static final int expanded_menu = 0x7f08007e;
         public static final int forever = 0x7f080087;
@@ -783,11 +783,11 @@ public final class R {
         public static final int text2 = 0x7f08011b;
         public static final int textSpacerNoButtons = 0x7f08011d;
         public static final int textSpacerNoTitle = 0x7f08011e;
-        public static final int time = 0x7f080128;
-        public static final int title = 0x7f080129;
-        public static final int titleDividerNoCustom = 0x7f08012a;
-        public static final int title_template = 0x7f08012b;
-        public static final int topPanel = 0x7f08012d;
+        public static final int time = 0x7f080126;
+        public static final int title = 0x7f080127;
+        public static final int titleDividerNoCustom = 0x7f080128;
+        public static final int title_template = 0x7f080129;
+        public static final int topPanel = 0x7f08012b;
         public static final int unchecked = 0x7f080144;
         public static final int uniform = 0x7f080145;
         public static final int up = 0x7f080147;
@@ -886,8 +886,8 @@ public final class R {
         public static final int abc_shareactionprovider_share_with = 0x7f0f0018;
         public static final int abc_shareactionprovider_share_with_application = 0x7f0f0019;
         public static final int abc_toolbar_collapse_description = 0x7f0f001a;
-        public static final int search_menu_title = 0x7f0f0057;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0058;
+        public static final int search_menu_title = 0x7f0f005b;
+        public static final int status_bar_notification_info_overflow = 0x7f0f005c;
     }
     public static final class style {
         private style() {}
