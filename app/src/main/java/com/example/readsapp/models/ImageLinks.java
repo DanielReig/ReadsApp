@@ -1,6 +1,6 @@
 package com.example.readsapp.models;
 
-class ImageLinks {
+public class ImageLinks {
     private String smallThumbnail;
     private String thumbnail;
     private String small;
@@ -9,6 +9,7 @@ class ImageLinks {
     private String extraLarge;
 
     public String getSmallThumbnail() {
+        smallThumbnail = "https" + smallThumbnail.substring(4);
         return smallThumbnail;
     }
 
@@ -17,6 +18,7 @@ class ImageLinks {
     }
 
     public String getThumbnail() {
+        thumbnail = "https" + smallThumbnail.substring(4);
         return thumbnail;
     }
 
@@ -25,6 +27,7 @@ class ImageLinks {
     }
 
     public String getSmall() {
+        smallThumbnail= "https" + smallThumbnail.substring(4);
         return small;
     }
 
@@ -33,6 +36,7 @@ class ImageLinks {
     }
 
     public String getMedium() {
+        medium = "https" + smallThumbnail.substring(4);
         return medium;
     }
 
@@ -41,6 +45,7 @@ class ImageLinks {
     }
 
     public String getLarge() {
+        large = "https" + smallThumbnail.substring(4);
         return large;
     }
 
@@ -49,6 +54,7 @@ class ImageLinks {
     }
 
     public String getExtraLarge() {
+        extraLarge = "https" + smallThumbnail.substring(4);
         return extraLarge;
     }
 

@@ -1,9 +1,14 @@
 package com.example.readsapp.services;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.ImageView;
+
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -87,5 +92,15 @@ public class GoogleBookService {
             e.printStackTrace();
         }
         return bookList;
+    }
+
+    public void setBookCover(String thumbnail, ImageView imageView){
+        Handler uiHandler  = new Handler(Looper.getMainLooper());
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Picasso.get().load(thumbnail).into(imageView);
+            }
+        });
     }
 }
