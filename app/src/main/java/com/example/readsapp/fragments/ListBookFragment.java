@@ -57,8 +57,8 @@ public class ListBookFragment extends Fragment {
 
     private ArrayList<bookItem> generateData() {
         ArrayList<bookItem> result = new ArrayList<>();
-        //result.add(new bookItem(" Moby Dick", android.R.drawable.ic_menu_sort_by_size));
-        //result.add(new bookItem(" El conde dracula",android.R.drawable.ic_menu_sort_by_size ));
+//        result.add(new bookItem(" Moby Dick", android.R.drawable.ic_menu_sort_by_size));
+//        result.add(new bookItem(" El conde dracula",android.R.drawable.ic_menu_sort_by_size ));
         return result;
     }
 }

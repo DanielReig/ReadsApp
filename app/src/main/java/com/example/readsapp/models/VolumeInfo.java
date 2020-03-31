@@ -9,7 +9,7 @@ public class VolumeInfo{
     private String publisher;
     private String publishedDate;
     private Long pageCount;
-    private int averageRating;
+    private double averageRating;
     private ImageLinks imageLinks;
     private String language;
     private String previewLink;
@@ -63,11 +63,11 @@ public class VolumeInfo{
         this.pageCount = pageCount;
     }
 
-    public int getAverageRating() {
+    public double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(int averageRating) {
+    public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 

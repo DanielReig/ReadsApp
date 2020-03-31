@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
-import com.example.readsapp.test.Books;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -15,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +45,8 @@ public class GoogleBookService {
     }
 
     public BookList searchBookByTitle(String title){
-        //String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + title;
-        String urlString = "https://www.googleapis.com/books/v1/volumes?q=4F5txgEACAAJ";
+        String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + title;
+
         BookList bookList = new BookList();
 
         try {
@@ -59,37 +57,8 @@ public class GoogleBookService {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             Gson gson = new Gson();
-            if(connection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                Books book = gson.fromJson(reader, Books.class);
-                //bookList = gson.fromJson(a, BookList.class);
-            }
 
-            reader.close();
-            connection.disconnect();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bookList;
-    }
-
-    public Books searchBookByTitleBooks(String title){
-        //String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + title;
-        String urlString = "https://www.googleapis.com/books/v1/volumes?q=4F5txgEACAAJ";
-        Books bookList = new Books();
-
-        try {
-            URL url = new URL(urlString);
-            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setDoInput(true);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            Gson gson = new Gson();
-            if(connection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                bookList = gson.fromJson(reader, Books.class);
-                //bookList = gson.fromJson(a, BookList.class);
-            }
+            bookList = gson.fromJson(reader,BookList.class);
 
             reader.close();
             connection.disconnect();

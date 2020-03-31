@@ -16,13 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
-import com.example.readsapp.adapters.AdapterListBook;
 import com.example.readsapp.adapters.AdapterListSearch;
 import com.example.readsapp.interfaz.bookItem;
-import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
 import com.example.readsapp.services.GoogleBookService;
-import com.example.readsapp.test.Books;
 
 import java.util.ArrayList;
 
@@ -77,9 +74,10 @@ public class SearchFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 GoogleBookService googleBookService = new GoogleBookService();
-                Books books = googleBookService.searchBookByTitleBooks(searchtext.getText().toString());
-                for(int i = 0; i < books.getTotalItems(); i++){
+                BookList books = googleBookService.searchBookByTitle(searchtext.getText().toString());
+                for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
                     //googleBookService.setBookCover(books.getItems().get(i).getVolumeInfo().getSmallThumbnail(),book.getImage());
                     book.setText(books.getItems().get(i).getVolumeInfo().getTitle());
