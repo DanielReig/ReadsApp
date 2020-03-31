@@ -1,10 +1,14 @@
 package com.example.readsapp.interfaz;
 
+import android.widget.ImageView;
+
 public class bookItem {
     private String text;
-    private int image;
+    private ImageView image;
 
-    public bookItem(String text, int image) {
+    public bookItem(){}
+
+    public bookItem(String text, ImageView image) {
         this.text = text;
         this.image = image;
     }
@@ -17,11 +21,11 @@ public class bookItem {
         this.text = text;
     }
 
-    public int getImage() {
+    public ImageView getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(ImageView image) {
         this.image = image;
     }
 }

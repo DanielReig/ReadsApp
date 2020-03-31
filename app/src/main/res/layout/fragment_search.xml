@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -18,13 +18,13 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/ibSearch"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ibSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -33,7 +33,7 @@
             android:textColor="@color/color_texto_botones"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/search"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_search_category_default" />
 
@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton">
+            app:layout_constraintTop_toBottomOf="@+id/ibSearch">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_search"

@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +19,17 @@ import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterListBook;
 import com.example.readsapp.adapters.AdapterListSearch;
 import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.models.Book;
+import com.example.readsapp.models.BookList;
+import com.example.readsapp.services.GoogleBookService;
+import com.example.readsapp.test.Books;
 
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
     private ArrayList<bookItem> listbook;
     private RecyclerView rvb;
+    private EditText searchtext;
     private RecyclerView.LayoutManager managerb ;
     private AdapterListSearch adapterb;
 
@@ -48,6 +56,14 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_search, container, false);
         this.rvb = v.findViewById(R.id.rv_search);
+        ImageButton i = v.findViewById(R.id.ibSearch);
+        i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickSearch();
+            }
+        });
+        this.searchtext = v.findViewById(R.id.search);
         if(getContext() != null){
             managerb = new LinearLayoutManager(getContext());
             this.rvb.setLayoutManager(managerb);
@@ -56,10 +72,34 @@ public class SearchFragment extends Fragment {
         return v;
     }
 
+    public void OnClickSearch(){
+        listbook.clear();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GoogleBookService googleBookService = new GoogleBookService();
+                Books books = googleBookService.searchBookByTitleBooks(searchtext.getText().toString());
+                for(int i = 0; i < books.getTotalItems(); i++){
+                    bookItem book = new bookItem();
+                    //googleBookService.setBookCover(books.getItems().get(i).getVolumeInfo().getSmallThumbnail(),book.getImage());
+                    book.setText(books.getItems().get(i).getVolumeInfo().getTitle());
+                    listbook.add(book);
+                }
+                /*de esta manera se actualiza la interfaz*/
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapterb.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
+
+    }
     private ArrayList<bookItem> generateData() {
         ArrayList<bookItem> result = new ArrayList<>();
-        result.add(new bookItem(" Moby Dick", android.R.drawable.ic_menu_sort_by_size));
-        result.add(new bookItem(" El conde dracula",android.R.drawable.ic_menu_sort_by_size ));
+        result.add(new bookItem(" Moby Dick",null));
+        result.add(new bookItem(" El conde dracula",null));
         return result;
     }
 }

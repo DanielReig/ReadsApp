@@ -1512,7 +1512,6 @@ id direct
 id disableHome
 id discover_nav_item
 id dropdown_menu
-id editText
 id edit_query
 id end
 id enterAlways
@@ -1540,17 +1539,18 @@ id groups
 id hideable
 id home
 id homeAsUp
+id ibSearch
 id icon
 id icon_group
 id ifRoom
 id image
-id imageButton
 id imageUser
 id imageView
 id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
+id ivbooklist
 id labeled
 id largeLabel
 id left
@@ -1630,6 +1630,7 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id search
 id search_badge
 id search_bar
 id search_button
