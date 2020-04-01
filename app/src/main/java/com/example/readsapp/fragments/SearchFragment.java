@@ -74,12 +74,11 @@ public class SearchFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 GoogleBookService googleBookService = new GoogleBookService();
                 BookList books = googleBookService.searchBookByTitle(searchtext.getText().toString());
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
-                    //googleBookService.setBookCover(books.getItems().get(i).getVolumeInfo().getSmallThumbnail(),book.getImage());
+                    googleBookService.setBookCover(books.getItems().get(i).getVolumeInfo().getImageLinks().getSmallThumbnail(),book.getImage());
                     book.setText(books.getItems().get(i).getVolumeInfo().getTitle());
                     listbook.add(book);
                 }
