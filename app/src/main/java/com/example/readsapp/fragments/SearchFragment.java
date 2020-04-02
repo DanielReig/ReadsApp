@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterListSearch;
 import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
 import com.example.readsapp.services.GoogleBookService;
 
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
     private ArrayList<bookItem> listbook;
     private RecyclerView rvb;
+    private BookList books;
     private EditText searchtext;
     private RecyclerView.LayoutManager managerb ;
     private AdapterListSearch adapterb;
@@ -40,7 +42,7 @@ public class SearchFragment extends Fragment {
         adapterb = new AdapterListSearch(getContext(), listbook, new AdapterListSearch.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                BookFragment fragment = new BookFragment(true);
+                BookFragment fragment = new BookFragment(true, books.getItems().get(position));
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 transaction.replace(R.id.fragment_container,fragment);
@@ -76,7 +78,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void run() {
                 GoogleBookService googleBookService = new GoogleBookService();
-                BookList books = googleBookService.searchBookByTitle(searchtext.getText().toString());
+                books = googleBookService.searchBookByTitle(searchtext.getText().toString());
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
                     book.setImage(new ImageView(getContext()));

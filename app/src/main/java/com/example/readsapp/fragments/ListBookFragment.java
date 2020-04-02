@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterListBook;
 import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.models.Book;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class ListBookFragment extends Fragment {
 
     private ArrayList<bookItem> listbook;
     private RecyclerView rvb;
+    private Book book;
     private RecyclerView.LayoutManager managerb ;
     private AdapterListBook adapterb;
 
@@ -34,7 +36,7 @@ public class ListBookFragment extends Fragment {
         adapterb = new AdapterListBook(getContext(), listbook, new AdapterListBook.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                BookFragment fragment = new BookFragment(false);
+                BookFragment fragment = new BookFragment(false, book);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
