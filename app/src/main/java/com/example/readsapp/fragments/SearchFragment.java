@@ -1,6 +1,7 @@
 package com.example.readsapp.fragments;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,8 @@ public class SearchFragment extends Fragment {
                 BookList books = googleBookService.searchBookByTitle(searchtext.getText().toString());
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
-                    googleBookService.setBookCover(books.getItems().get(i).getVolumeInfo().getImageLinks().getSmallThumbnail(),book.getImage());
+                    book.setImage(new ImageView(getContext()));
+                    googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());
                     book.setText(books.getItems().get(i).getVolumeInfo().getTitle());
                     listbook.add(book);
                 }

@@ -94,12 +94,22 @@ public class GoogleBookService {
         return bookList;
     }
 
-    public void setBookCover(String thumbnail, ImageView imageView){
+    public void setBookThumbnail(Book book, ImageView imageView){
         Handler uiHandler  = new Handler(Looper.getMainLooper());
         uiHandler.post(new Runnable() {
             @Override
             public void run() {
-                Picasso.get().load(thumbnail).into(imageView);
+                String thumbnail ="";
+                if(book != null){
+                    if(book.getVolumeInfo() != null){
+                        if(book.getVolumeInfo().getImageLinks() != null){
+                            if (book.getVolumeInfo().getImageLinks().getThumbnail() != null){
+                                thumbnail = book.getVolumeInfo().getImageLinks().getThumbnail();
+                                Picasso.get().load(thumbnail).into(imageView);
+                            }
+                        }
+                    }
+                }
             }
         });
     }
