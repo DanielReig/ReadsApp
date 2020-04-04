@@ -1,15 +1,126 @@
 package com.example.readsapp.models;
 
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Book {
     private String id;
     private VolumeInfo volumeInfo;
+
+    public List<String> getCategories() {
+        return volumeInfo.getCategories();
+    }
+
+    public void setCategories(List<String> categories) {
+        this.volumeInfo.setCategories(categories);
+    }
+
+    public IndustryIdentifiers[] getIndustryIdentifiers() {
+        return volumeInfo.getIndustryIdentifiers();
+    }
+
+    public void setIndustryIdentifiers(IndustryIdentifiers[] industryIdentifiers) {
+        this.volumeInfo.setIndustryIdentifiers(industryIdentifiers);
+    }
+
+    public String getISBN(){
+        return this.volumeInfo.getIndustryIdentifiers()[1].getIdentifier();
+    }
+
+    public String getDescription() {
+        return volumeInfo.getDescription();
+    }
+
+    public void setDescription(String description) {
+        volumeInfo.setDescription(description);
+    }
+
+    public String getTitle() {
+        return volumeInfo.getTitle();
+    }
+
+    public void setTitle(String title) {
+        this.volumeInfo.setTitle(title);
+    }
+
+    public String getSubtitle() {
+        return volumeInfo.getSubtitle();
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.volumeInfo.setSubtitle(subtitle);
+    }
+
+    public List<String> getAuthors() {
+        return this.volumeInfo.getAuthors();
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.volumeInfo.setAuthors(authors);
+    }
+
+    public String getPublisher() {
+        return this.volumeInfo.getPublisher();
+    }
+
+    public void setPublisher(String publisher) {
+        this.volumeInfo.setPublisher(publisher);
+    }
+
+    public String getPublishedDate() {
+        return this.volumeInfo.getPublishedDate();
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.volumeInfo.getPublishedDate();
+    }
+
+    public Long getPageCount() {
+        return this.volumeInfo.getPageCount();
+    }
+
+    public void setPageCount(Long pageCount) {
+        this.volumeInfo.setPageCount(pageCount);
+    }
+
+    public double getAverageRating() {
+        return this.volumeInfo.getAverageRating();
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.volumeInfo.setAverageRating(averageRating);
+    }
+
+    public ImageLinks getImageLinks() {
+        return this.volumeInfo.getImageLinks();
+    }
+
+    public void setImageLinks(ImageLinks imageLinks) {
+        this.volumeInfo.setImageLinks(imageLinks);
+    }
+
+    public String getLanguage() {
+        return this.volumeInfo.getLanguage();
+    }
+
+    public void setLanguage(String language) {
+        this.volumeInfo.setLanguage(language);
+    }
+
+    public String getPreviewLink() {
+        return this.volumeInfo.getPreviewLink();
+    }
+
+    public void setPreviewLink(String previewLink) {
+        this.volumeInfo.setPreviewLink(previewLink);
+    }
+
+    public String getInfoLink() {
+        return this.volumeInfo.getInfoLink();
+    }
+
+    public void setInfoLink(String infoLink) {
+        this.volumeInfo.setInfoLink(infoLink);
+    }
 
     public String getId() {
         return id;
@@ -27,7 +138,7 @@ public class Book {
         this.volumeInfo = volumeInfo;
     }
 
-    public void setBook(Book book){
+    public void setBook(Book book) {
         this.id = book.getId();
         this.volumeInfo = book.getVolumeInfo();
     }

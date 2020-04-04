@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/bookCover"
             android:layout_width="137dp"
             android:layout_height="130dp"
             android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
         android:text="@string/name_author"
         app:layout_constraintBottom_toTopOf="@+id/tvedicion_s"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/bookCover" />
 
     <TextView
         android:id="@+id/tvnamebook"
@@ -34,7 +34,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/bookCover"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -109,7 +109,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/tvautor_s"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/bookCover" />
 
     <TextView
         android:id="@+id/tvedition"

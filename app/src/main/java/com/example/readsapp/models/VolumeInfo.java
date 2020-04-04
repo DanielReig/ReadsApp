@@ -14,6 +14,33 @@ public class VolumeInfo{
     private String language;
     private String previewLink;
     private String infoLink;
+    private String description;
+    private IndustryIdentifiers[] industryIdentifiers;
+    private List<String> categories;
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public IndustryIdentifiers[] getIndustryIdentifiers() {
+        return industryIdentifiers;
+    }
+
+    public void setIndustryIdentifiers(IndustryIdentifiers[] industryIdentifiers) {
+        this.industryIdentifiers = industryIdentifiers;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getPublishedDate() {
         return publishedDate;

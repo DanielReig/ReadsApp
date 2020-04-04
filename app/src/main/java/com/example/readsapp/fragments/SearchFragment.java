@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment {
                     bookItem book = new bookItem();
                     book.setImage(new ImageView(getContext()));
                     googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());
-                    book.setText(books.getItems().get(i).getVolumeInfo().getTitle());
+                    book.setText(books.getItems().get(i).getTitle());
                     listbook.add(book);
                 }
                 /*de esta manera se actualiza la interfaz*/
