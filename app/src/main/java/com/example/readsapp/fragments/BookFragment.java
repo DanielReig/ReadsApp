@@ -80,7 +80,6 @@ public class BookFragment extends Fragment {
         }else{
             topic.setText(book.getCategories().get(0));
         }
-
         GoogleBookService googleBookService = new GoogleBookService();
         googleBookService.setBookThumbnail(book, bookCover);
 

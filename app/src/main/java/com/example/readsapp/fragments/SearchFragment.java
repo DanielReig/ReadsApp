@@ -38,7 +38,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listbook = generateData();
+        //listbook = generateData();
+        listbook = new ArrayList<bookItem>();
         adapterb = new AdapterListSearch(getContext(), listbook, new AdapterListSearch.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
