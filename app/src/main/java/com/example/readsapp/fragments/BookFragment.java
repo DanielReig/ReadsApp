@@ -68,7 +68,7 @@ public class BookFragment extends Fragment {
             if (authors.size() > 1) {
                 String s = "";
                 for (int i = 0; i < book.getAuthors().size(); i++) {
-                    s += ", " + book.getAuthors().get(i);
+                    s += book.getAuthors().get(i) + ", ";
                 }
                 author.setText(s);
             } else {

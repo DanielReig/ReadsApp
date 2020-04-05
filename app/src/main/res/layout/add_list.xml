@@ -23,13 +23,4 @@
         android:inputType="textPersonName"
         android:text="" />
 
-    <Button
-        android:id="@+id/bCreateList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/drawable_botones"
-        android:text="@string/name_create"
-        android:textColor="@color/color_texto_botones" />
-
 </LinearLayout>

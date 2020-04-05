@@ -2,6 +2,7 @@ package com.example.readsapp.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,28 +65,36 @@ public class ListsFragment extends Fragment {
         this.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
                 View view = getLayoutInflater().inflate(R.layout.add_list, null);
                 //cojo la referencia del text para guardarme su valor cuando el usuario cree la nueva lista
                 EditText t = view.findViewById(R.id.et_CreateList);
-                Button create = view.findViewById(R.id.bCreateList);
-                create.setOnClickListener(new View.OnClickListener() {
+                AddItemList(t, view);
+            }
+        });
+
+        return v;
+    }
+
+    private void AddItemList(EditText text, View view){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext())
+                .setPositiveButton(R.string.name_create, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        if(!t.getText().toString().isEmpty()){
-                            list.add(new Item(t.getText().toString(),android.R.drawable.ic_menu_sort_by_size));
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!text.getText().toString().isEmpty()) {
+                            list.add(new Item(text.getText().toString(), android.R.drawable.ic_menu_sort_by_size));
                             adapter.notifyDataSetChanged();
-                            //???-> falta quitar el dialog
-                            Toast.makeText(getContext(), R.string.create_ok_msg,Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             Toast.makeText(getContext(), R.string.create_entry_msg, Toast.LENGTH_SHORT).show();
                         }
                     }
+                })
+                .setNegativeButton(R.string.name_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
                 });
                 dialog.setView(view).create().show();
-            }
-        });
-        return v;
     }
 
     private ArrayList<Item> generateData() {
