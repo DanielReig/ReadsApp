@@ -65,7 +65,6 @@ public class AdapterListBook extends RecyclerView.Adapter<AdapterListBook.ViewHo
         return data.size();
     }
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View v;
         // Hold a reference to a TextView to later change its text

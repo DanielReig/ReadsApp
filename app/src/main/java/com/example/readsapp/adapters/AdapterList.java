@@ -20,7 +20,6 @@ public class AdapterList extends RecyclerView.Adapter<AdapterList.ViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClicked(int position);
-        void onItemLongClickListener(int position);
     }
 
     private Context context;
@@ -58,11 +57,6 @@ public class AdapterList extends RecyclerView.Adapter<AdapterList.ViewHolder> {
                 null, null, null);
     }
 
-    public void removeItem(int position){
-        data.remove(position);
-        notifyDataSetChanged();
-    }
-
     /**
      * Returns the number of elements in the data source.
      */
@@ -83,14 +77,6 @@ public class AdapterList extends RecyclerView.Adapter<AdapterList.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     listener.onItemClicked(getAdapterPosition());
-                }
-
-            });
-            v.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    listener.onItemClicked(getAdapterPosition());
-                    return true;
                 }
             });
         }

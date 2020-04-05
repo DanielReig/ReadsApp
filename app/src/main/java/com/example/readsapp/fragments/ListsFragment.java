@@ -48,33 +48,7 @@ public class ListsFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
-            }
-
-            //no va -> ?????????????????????
-            @Override
-            public void onItemLongClickListener(int position) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                dialog.setMessage(R.string.deleteOneDialogTitle).setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapter.removeItem(position);
-                                adapter.notifyDataSetChanged();
-                            }
-                        }).run();
-                    }
-                }).setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                dialog.create().show();
-            }
-        });
-
+            }});
     }
 
     @Nullable
@@ -114,13 +88,13 @@ public class ListsFragment extends Fragment {
                         }
                     }
                 })
-                .setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.name_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+
                     }
                 });
-        dialog.setView(view).create().show();
+                dialog.setView(view).create().show();
     }
 
     private ArrayList<Item> generateData() {
