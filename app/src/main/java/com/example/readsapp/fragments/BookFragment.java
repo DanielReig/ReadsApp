@@ -16,6 +16,8 @@ import com.example.readsapp.R;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.services.GoogleBookService;
 
+import java.util.List;
+
 public class BookFragment extends Fragment {
     private boolean newBook = false;
     private Book book;
@@ -61,24 +63,29 @@ public class BookFragment extends Fragment {
     }
 
     private void InfBook(){
-        if(book.getAuthors().size() > 1){
-            String s = "";
-            for(int i =0; i < book.getAuthors().size();i++){
-                s+= ", " + book.getAuthors().get(i);
+        List<String> authors = book.getAuthors();
+        if(authors != null) {
+            if (authors.size() > 1) {
+                String s = "";
+                for (int i = 0; i < book.getAuthors().size(); i++) {
+                    s += ", " + book.getAuthors().get(i);
+                }
+                author.setText(s);
+            } else {
+                author.setText(book.getAuthors().get(0));
             }
-            author.setText(s);
-        }else{
-            author.setText(book.getAuthors().get(0));
         }
-
-        if(book.getCategories().size() > 1){
-            String s = "";
-            for(int i =0; i < book.getCategories().size();i++){
-                s+= ", " + book.getCategories().get(i);
+        List<String> categories = book.getCategories();
+        if(categories != null) {
+            if (categories.size() > 1) {
+                String s = "";
+                for (int i = 0; i < book.getCategories().size(); i++) {
+                    s += ", " + book.getCategories().get(i);
+                }
+                topic.setText(s);
+            } else {
+                topic.setText(book.getCategories().get(0));
             }
-            topic.setText(s);
-        }else{
-            topic.setText(book.getCategories().get(0));
         }
         GoogleBookService googleBookService = new GoogleBookService();
         googleBookService.setBookThumbnail(book, bookCover);

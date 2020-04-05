@@ -1993,3 +1993,4 @@ app/build/intermediates/transforms/dexBuilder/debug/0/com/google/android/materia
 app/build/intermediates/transforms/dexBuilder/debug/0/com/google/android/material/R.dex
 app/build/intermediates/transforms/dexBuilder/debug/0/com/squareup/picasso/R.dex
 app/build/outputs/apk/debug/output.json
+app/build/intermediates/merged_manifests/debugAndroidTest/output.json

@@ -23,7 +23,10 @@ public class Book {
     }
 
     public String getISBN(){
-        return this.volumeInfo.getIndustryIdentifiers()[1].getIdentifier();
+        if(this.volumeInfo.getIndustryIdentifiers().length > 1 && this.volumeInfo.getIndustryIdentifiers()[1] != null) {
+            return this.volumeInfo.getIndustryIdentifiers()[1].getIdentifier();
+        }
+        return  null;
     }
 
     public String getDescription() {
