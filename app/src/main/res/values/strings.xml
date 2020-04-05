@@ -13,8 +13,10 @@
     <string name="Create_list">Create new list</string>
     <string name="name_create">Create</string>
     <string name="name_statistic">Statistics</string>
-    <string name="name_cancel">Cancel</string>
     <string name="create_ok_msg">list created successfully</string>
     <string name="create_cancel_msg">canceled new list</string>
     <string name="create_entry_msg">you have not named the new list</string>
+    <string name="deleteOneDialogTitle">Are you sure you want to delete this?</string>
+    <string name="okDeleteDialog">OK</string>
+    <string name="cancelDeleteDialog">Cancel</string>
 </resources>
