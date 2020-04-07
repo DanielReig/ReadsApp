@@ -19,4 +19,10 @@
     <string name="deleteOneDialogTitle">Are you sure you want to delete this?</string>
     <string name="okDeleteDialog">OK</string>
     <string name="cancelDeleteDialog">Cancel</string>
+
+
+    <!--    DISCOVER-->
+    <string name="btnFiction">Fiction</string>
+    <string name="btnRomance">Romance</string>
+    <string name="btnThriller">Thriller</string>
 </resources>
