@@ -89,7 +89,7 @@ public class AdapterList extends RecyclerView.Adapter<AdapterList.ViewHolder> {
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    listener.onItemClicked(getAdapterPosition());
+                    listener.onItemLongClickListener(getAdapterPosition());
                     return true;
                 }
             });

@@ -113,4 +113,18 @@ public class GoogleBookService {
             }
         });
     }
+
+    public void setBookThumbnailAdapter(String book, ImageView imageView){
+        Handler uiHandler  = new Handler(Looper.getMainLooper());
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                String thumbnail ="";
+                if(book != null){
+                    Picasso.get().load(book).into(imageView);
+
+                }
+            }
+        });
+    }
 }

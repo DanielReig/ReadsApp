@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,7 @@ import com.example.readsapp.interfaz.bookItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.example.readsapp.services.GoogleBookService;
 public class AdapterListSearch extends RecyclerView.Adapter<AdapterListSearch.ViewHolder> {
 
     public interface OnItemClickListener {
@@ -49,6 +50,9 @@ public class AdapterListSearch extends RecyclerView.Adapter<AdapterListSearch.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv.setText(data.get(position).getText());
+        data.get(position).setImage(holder.im);
+        GoogleBookService googleBookServicee = new GoogleBookService();
+        googleBookServicee.setBookThumbnailAdapter(data.get(position).getUrl(),holder.im);
 //        holder.tv.setCompoundDrawablesWithIntrinsicBounds(
 //                context.getResources().getDrawable(data.get(position).getImage(),null),
 //                null, null, null);
@@ -68,9 +72,11 @@ public class AdapterListSearch extends RecyclerView.Adapter<AdapterListSearch.Vi
         View v;
         // Hold a reference to a TextView to later change its text
         TextView tv;
+        ImageView im;
         public ViewHolder(View view, final AdapterListSearch.OnItemClickListener listener) {
             super(view);
             v = view;
+            im = view.findViewById(R.id.ivbooklist);
             tv = view.findViewById(R.id.tvBooklist);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

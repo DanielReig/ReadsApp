@@ -82,8 +82,11 @@ public class SearchFragment extends Fragment {
                 books = googleBookService.searchBookByTitle(searchtext.getText().toString());
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
-                    book.setImage(new ImageView(getContext()));
-                    googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());
+                    if((books.getItems().get(i).getVolumeInfo() != null)&& (books.getItems().get(i).getVolumeInfo().getImageLinks() != null)) {
+                        book.setUrl(books.getItems().get(i).getImageLinks().getSmallThumbnail());
+                    }
+                   // book.setImage(new ImageView(getContext()));
+                   // googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());
                     book.setText(books.getItems().get(i).getTitle());
                     listbook.add(book);
                 }
@@ -91,7 +94,11 @@ public class SearchFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                      //  GoogleBookService googleBookServicee = new GoogleBookService();
                         adapterb.notifyDataSetChanged();
+                      //  for(int i = 0; i < listbook.size(); i++){
+                      //      googleBookServicee.setBookThumbnail(books.getItems().get(i),listbook.get(i).getImage());
+                      //  }
                     }
                 });
             }

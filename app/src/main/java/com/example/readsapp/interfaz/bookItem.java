@@ -5,12 +5,21 @@ import android.widget.ImageView;
 public class bookItem {
     private String text;
     private ImageView image;
+    private String url;
 
     public bookItem(){}
 
     public bookItem(String text, ImageView image) {
         this.text = text;
         this.image = image;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String text) {
+        this.url = text;
     }
 
     public String getText() {
