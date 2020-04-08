@@ -19,6 +19,7 @@ public class AdapterListBook extends RecyclerView.Adapter<AdapterListBook.ViewHo
 
     public interface OnItemClickListener {
         void onItemClicked(int position);
+        void onItemLongClickListener(int position);
     }
 
     private Context context;
@@ -65,6 +66,11 @@ public class AdapterListBook extends RecyclerView.Adapter<AdapterListBook.ViewHo
         return data.size();
     }
 
+    public void removeItem(int position){
+        data.remove(position);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View v;
         // Hold a reference to a TextView to later change its text
@@ -79,6 +85,13 @@ public class AdapterListBook extends RecyclerView.Adapter<AdapterListBook.ViewHo
                 @Override
                 public void onClick(View v) {
                     listener.onItemClicked(getAdapterPosition());
+                }
+            });
+            v.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onItemLongClickListener(getAdapterPosition());
+                    return true;
                 }
             });
         }

@@ -1,5 +1,7 @@
 package com.example.readsapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,29 @@ public class ListBookFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
+            }
+
+            @Override
+            public void onItemLongClickListener(int position) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setMessage(R.string.deleteOneDialogTitle).setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapterb.removeItem(position);
+                                adapterb.notifyDataSetChanged();
+                            }
+                        }).run();
+                    }
+                }).setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.create().show();
             }
         });
 

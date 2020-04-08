@@ -50,7 +50,6 @@ public class ListsFragment extends Fragment {
                 transaction.commit();
             }
 
-            //no va -> ?????????????????????
             @Override
             public void onItemLongClickListener(int position) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
