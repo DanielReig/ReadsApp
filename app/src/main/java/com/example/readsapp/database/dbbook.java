@@ -23,6 +23,8 @@ public class dbbook {
     @ColumnInfo(name = "listBook")
     private ArrayList<String> list;
 
+    public  dbbook(){}
+
     public dbbook(Book b, ArrayList<String> a){
         this.book = b;
         this.list = a;
