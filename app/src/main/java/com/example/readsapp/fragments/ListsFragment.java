@@ -1,13 +1,11 @@
 package com.example.readsapp.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,14 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
-import com.example.readsapp.activities.MainActivity;
 import com.example.readsapp.adapters.AdapterList;
+import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.interfaz.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import com.example.readsapp.activities.MainActivity;
 
 public class ListsFragment extends Fragment {
     private ArrayList<Item> list;
@@ -34,12 +30,14 @@ public class ListsFragment extends Fragment {
     private RecyclerView.LayoutManager manager ;
     private AdapterList adapter;
     private FloatingActionButton add;
+    private BookDatabase database;
 
     public ListsFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = BookDatabase.getInstance(getContext());
         list = generateData();
         adapter = new AdapterList(getContext(), list, new AdapterList.OnItemClickListener() {
             @Override
@@ -59,6 +57,7 @@ public class ListsFragment extends Fragment {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                database.BookDao().deleteList(list.get(position).getText());
                                 adapter.removeItem(position);
                                 adapter.notifyDataSetChanged();
                             }
@@ -107,6 +106,7 @@ public class ListsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (!text.getText().toString().isEmpty()) {
                             list.add(new Item(text.getText().toString(), android.R.drawable.ic_menu_sort_by_size));
+                            database.BookDao().addlist(text.getText().toString());
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getContext(), R.string.create_entry_msg, Toast.LENGTH_SHORT).show();
@@ -124,7 +124,10 @@ public class ListsFragment extends Fragment {
 
     private ArrayList<Item> generateData() {
         ArrayList<Item> result = new ArrayList<>();
-        result.add(new Item("Reading", android.R.drawable.ic_menu_sort_by_size));
+        ArrayList<String> s = database.BookDao().getlist();
+        for(int i = 0; i < s.size(); i++){
+            result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+        }
         return result;
     }
 }
