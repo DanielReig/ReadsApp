@@ -17,24 +17,24 @@ public class dbbook {
     private int id;
 
     @ColumnInfo(name = "book")
-    private Book book;
+    private String book;
 
     @NonNull
     @ColumnInfo(name = "listBook")
-    private ArrayList<String> list;
+    private String list;
 
     public dbbook(){}
 
-    public dbbook(Book b, ArrayList<String> a){
+    public dbbook(String b,String s){
         this.book = b;
-        this.list = a;
+        this.list = s;
     }
 
-    public Book getBook() {
+    public String getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(String book) {
         this.book = book;
     }
 
@@ -47,11 +47,11 @@ public class dbbook {
     }
 
     @NonNull
-    public ArrayList<String> getList() {
+    public String getList() {
         return list;
     }
 
-    public void setList(@NonNull ArrayList<String> list) {
+    public void setList(String list) {
         this.list = list;
     }
 }

@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterList;
 import com.example.readsapp.database.BookDatabase;
+import com.example.readsapp.database.dbbook;
 import com.example.readsapp.interfaz.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListsFragment extends Fragment {
     private ArrayList<Item> list;
@@ -57,7 +59,7 @@ public class ListsFragment extends Fragment {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                database.BookDao().deleteList(list.get(position).getText());
+                                database.BookDao().deleteList(new dbbook(null, list.get(position).getText()));
                                 adapter.removeItem(position);
                                 adapter.notifyDataSetChanged();
                             }
@@ -106,7 +108,7 @@ public class ListsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (!text.getText().toString().isEmpty()) {
                             list.add(new Item(text.getText().toString(), android.R.drawable.ic_menu_sort_by_size));
-                            database.BookDao().addlist(text.getText().toString());
+                            database.BookDao().addlist(new dbbook(null, text.getText().toString()));
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getContext(), R.string.create_entry_msg, Toast.LENGTH_SHORT).show();
@@ -124,9 +126,11 @@ public class ListsFragment extends Fragment {
 
     private ArrayList<Item> generateData() {
         ArrayList<Item> result = new ArrayList<>();
-        ArrayList<String> s = database.BookDao().getlist();
-        for(int i = 0; i < s.size(); i++){
-            result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+        List<String> s = database.BookDao().getlist();
+        if(s != null){
+            for(int i = 0; i < s.size(); i++){
+                result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+            }
         }
         return result;
     }

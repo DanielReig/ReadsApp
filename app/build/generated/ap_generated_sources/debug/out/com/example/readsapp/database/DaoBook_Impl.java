@@ -7,11 +7,11 @@ import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
-import com.example.readsapp.models.Book;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"unchecked", "deprecation"})
 public final class DaoBook_Impl implements DaoBook {
@@ -32,6 +32,16 @@ public final class DaoBook_Impl implements DaoBook {
       @Override
       public void bind(SupportSQLiteStatement stmt, dbbook value) {
         stmt.bindLong(1, value.getId());
+        if (value.getBook() == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.getBook());
+        }
+        if (value.getList() == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, value.getList());
+        }
       }
     };
     this.__deletionAdapterOfdbbook = new EntityDeletionOrUpdateAdapter<dbbook>(__db) {
@@ -60,7 +70,15 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
-  public void addlist(final String list) {
+  public void addlist(final dbbook list) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfdbbook.insert(list);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
   }
 
   @Override
@@ -76,8 +94,20 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
-  public ArrayList<Book> getBooks(final String text) {
-    final String _sql = "SELECT * FROM MyBooks WHERE listBook = ?";
+  public void deleteList(final dbbook list) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __deletionAdapterOfdbbook.handle(list);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public List<String> getBooks(final String text) {
+    final String _sql = "SELECT book FROM MyBooks WHERE listBook = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
     if (text == null) {
@@ -88,6 +118,12 @@ public final class DaoBook_Impl implements DaoBook {
     __db.assertNotSuspendingTransaction();
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
+      final List<String> _result = new ArrayList<String>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final String _item;
+        _item = _cursor.getString(0);
+        _result.add(_item);
+      }
       return _result;
     } finally {
       _cursor.close();
@@ -96,12 +132,18 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
-  public ArrayList<String> getlist() {
-    final String _sql = "SELECT listBook FROM MyBooks";
+  public List<String> getlist() {
+    final String _sql = "SELECT listBook FROM MyBooks WHERE book = null";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     __db.assertNotSuspendingTransaction();
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
+      final List<String> _result = new ArrayList<String>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final String _item;
+        _item = _cursor.getString(0);
+        _result.add(_item);
+      }
       return _result;
     } finally {
       _cursor.close();
