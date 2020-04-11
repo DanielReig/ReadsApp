@@ -52,7 +52,10 @@ public class AdapterListSearch extends RecyclerView.Adapter<AdapterListSearch.Vi
         holder.tv.setText(data.get(position).getText());
         data.get(position).setImage(holder.im);
         GoogleBookService googleBookServicee = new GoogleBookService();
-        googleBookServicee.setBookThumbnailAdapter(data.get(position).getUrl(),holder.im);
+
+        if(data.get(position).getUrl() != null) {
+            googleBookServicee.setBookThumbnailAdapter(data.get(position).getUrl(), holder.im);
+        }
 //        holder.tv.setCompoundDrawablesWithIntrinsicBounds(
 //                context.getResources().getDrawable(data.get(position).getImage(),null),
 //                null, null, null);

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 
+import com.example.readsapp.R;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
 import com.google.gson.Gson;
@@ -70,7 +71,7 @@ public class GoogleBookService {
     }
 
     public  BookList getBooksBySubject(String subject){
-        String urlString = "https://www.googleapis.com/books/v1/volumes?q=subject:" + subject;
+        String urlString = "https://www.googleapis.com/books/v1/volumes?q=subject:" + subject + "&maxResults=39";
 
         BookList bookList = new BookList();
 
@@ -119,10 +120,8 @@ public class GoogleBookService {
         uiHandler.post(new Runnable() {
             @Override
             public void run() {
-                String thumbnail ="";
                 if(book != null){
-                    Picasso.get().load(book).into(imageView);
-
+                    Picasso.get().load(book).placeholder(R.drawable.ic_library_books_black_24dp).into(imageView);
                 }
             }
         });

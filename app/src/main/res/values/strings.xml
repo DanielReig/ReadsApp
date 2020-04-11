@@ -24,5 +24,11 @@
     <!--    DISCOVER-->
     <string name="btnFiction">Fiction</string>
     <string name="btnRomance">Romance</string>
-    <string name="btnThriller">Thriller</string>
+    <string name="btnThriller">Mystery</string>
+    <string name="btnAdventure">Adventure</string>
+    <string name="btnClassic">Classics</string>
+    <string name="fantasy">Fantasy</string>
+    <string name="horror">Horror</string>
+    <string name="biography">Biography</string>
+    <string name="history">History</string>
 </resources>

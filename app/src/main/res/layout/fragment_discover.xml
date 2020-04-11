@@ -13,23 +13,25 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutBtn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/btnThriller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnThriller"
-                app:layout_constraintStart_toEndOf="@id/btnRomance"
+                app:layout_constraintStart_toEndOf="@id/btnHistory"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnRomance"
+                android:id="@+id/btnHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnRomance"
+                android:text="@string/history"
                 app:layout_constraintStart_toEndOf="@id/btnFiction"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnFiction"
@@ -38,6 +40,47 @@
                 android:text="@string/btnFiction"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnAdventure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnAdventure"
+                app:layout_constraintStart_toEndOf="@id/btnThriller"
+                tools:layout_editor_absoluteX="176dp" />
+
+            <Button
+                android:id="@+id/btnClassic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnClassic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnFiction" />
+
+            <Button
+                android:id="@+id/btnFantasy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fantasy"
+                app:layout_constraintStart_toEndOf="@+id/btnClassic"
+                app:layout_constraintTop_toBottomOf="@+id/btnHistory"
+                tools:layout_editor_absoluteY="48dp" />
+
+            <Button
+                android:id="@+id/btnHorror"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horror"
+                app:layout_constraintStart_toEndOf="@+id/btnFantasy"
+                app:layout_constraintTop_toBottomOf="@+id/btnThriller" />
+
+            <Button
+                android:id="@+id/btnBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/biography"
+                app:layout_constraintStart_toEndOf="@+id/btnHorror"
+                app:layout_constraintTop_toBottomOf="@+id/btnAdventure" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,7 +94,8 @@
                 android:id="@+id/rvDiscover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment {
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
                     if((books.getItems().get(i).getVolumeInfo() != null)&& (books.getItems().get(i).getVolumeInfo().getImageLinks() != null)) {
-                        book.setUrl(books.getItems().get(i).getImageLinks().getSmallThumbnail());
+                        book.setUrl(books.getItems().get(i).getImageLinks().getThumbnail());
                     }
                    // book.setImage(new ImageView(getContext()));
                    // googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());

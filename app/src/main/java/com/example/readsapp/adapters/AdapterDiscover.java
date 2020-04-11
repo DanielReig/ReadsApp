@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.services.GoogleBookService;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,12 @@ public class AdapterDiscover extends RecyclerView.Adapter<AdapterDiscover.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AdapterDiscover.ViewHolder holder, int position) {
         holder.tv.setText(data.get(position).getText());
+        data.get(position).setImage(holder.im);
+        GoogleBookService googleBookServicee = new GoogleBookService();
+
+        if(data.get(position).getUrl() != null) {
+            googleBookServicee.setBookThumbnailAdapter(data.get(position).getUrl(), holder.im);
+        }
     }
 
     @Override
@@ -53,9 +61,11 @@ public class AdapterDiscover extends RecyclerView.Adapter<AdapterDiscover.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View v;
         TextView tv;
+        ImageView im;
         public ViewHolder(View view, final OnItemClickListener listener) {
             super(view);
             v = view;
+            im = view.findViewById(R.id.ivbooklist);
             tv = view.findViewById(R.id.tvBooklist);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
