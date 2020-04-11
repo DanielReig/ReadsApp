@@ -126,12 +126,15 @@ public class ListsFragment extends Fragment {
 
     private ArrayList<Item> generateData() {
         ArrayList<Item> result = new ArrayList<>();
-        List<String> s = database.BookDao().getlist();
-        if(s != null){
-            for(int i = 0; i < s.size(); i++){
-                result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> s = database.BookDao().getlist();
+                for(int i = 0; i < s.size(); i++){
+                    result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+                }
             }
-        }
+        }).run();
         return result;
     }
 }
