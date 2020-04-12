@@ -29,6 +29,7 @@ import java.util.List;
 public class ListsFragment extends Fragment {
     private ArrayList<Item> list;
     private RecyclerView rv;
+    private List<dbbook> listdb;
     private RecyclerView.LayoutManager manager ;
     private AdapterList adapter;
     private FloatingActionButton add;
@@ -59,11 +60,23 @@ public class ListsFragment extends Fragment {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                database.BookDao().deleteList(new dbbook(null, list.get(position).getText()));
-                                adapter.removeItem(position);
-                                adapter.notifyDataSetChanged();
+                                final dbbook data = listdb.get(position);
+                                //detele books of list
+                                List<dbbook> books = database.BookDao().getBooks(data.getList());
+                                for(int i = 0; i < books.size(); i++){
+                                    database.BookDao().deleteBook(books.get(i));
+                                }
+                                //delete the list
+                                database.BookDao().deleteList(data);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        adapter.removeItem(position);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                });
                             }
-                        }).run();
+                        }).start();
                     }
                 }).setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
                     @Override
@@ -139,10 +152,10 @@ public class ListsFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<String> s = database.BookDao().getlist();
-                if(s.size() > 0){
-                    for(int i = 0; i < s.size(); i++){
-                        result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+                listdb = database.BookDao().getlist();
+                if(listdb.size() > 0){
+                    for(int i = 0; i < listdb.size(); i++){
+                        result.add(new Item(listdb.get(i).getList(), android.R.drawable.ic_menu_sort_by_size));
                     }
                 }
             }

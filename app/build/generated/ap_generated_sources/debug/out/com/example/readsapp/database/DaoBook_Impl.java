@@ -145,16 +145,28 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
-  public List<String> getlist() {
-    final String _sql = "SELECT listBook FROM MyBooks WHERE book IS NULL OR book = ';'";
+  public List<dbbook> getlist() {
+    final String _sql = "SELECT * FROM MyBooks WHERE book IS NULL OR book = ';'";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     __db.assertNotSuspendingTransaction();
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
-      final List<String> _result = new ArrayList<String>(_cursor.getCount());
+      final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "_ID");
+      final int _cursorIndexOfBook = CursorUtil.getColumnIndexOrThrow(_cursor, "book");
+      final int _cursorIndexOfList = CursorUtil.getColumnIndexOrThrow(_cursor, "listBook");
+      final List<dbbook> _result = new ArrayList<dbbook>(_cursor.getCount());
       while(_cursor.moveToNext()) {
-        final String _item;
-        _item = _cursor.getString(0);
+        final dbbook _item;
+        _item = new dbbook();
+        final int _tmpId;
+        _tmpId = _cursor.getInt(_cursorIndexOfId);
+        _item.setId(_tmpId);
+        final String _tmpBook;
+        _tmpBook = _cursor.getString(_cursorIndexOfBook);
+        _item.setBook(_tmpBook);
+        final String _tmpList;
+        _tmpList = _cursor.getString(_cursorIndexOfList);
+        _item.setList(_tmpList);
         _result.add(_item);
       }
       return _result;

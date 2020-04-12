@@ -23,7 +23,6 @@ public class ProfileFragment extends Fragment {
 
         Button b = v.findViewById(R.id.bcalendarProfile);
         b.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
                 CalendarFragment somefragment = new CalendarFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();

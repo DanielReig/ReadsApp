@@ -42,7 +42,7 @@ public class BookFragment extends Fragment {
     private Button button;
     private BookDatabase database;
     private String textList;
-    private int Arraylist;
+    private List<dbbook> listdb;
 
     public  BookFragment(String s, Book b){
         textList = s;
@@ -152,10 +152,10 @@ public class BookFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<String> s = database.BookDao().getlist();
-                if(s.size() > 0){
-                    for(int i = 0; i < s.size(); i++){
-                        result.add(s.get(i));
+                listdb = database.BookDao().getlist();
+                if(listdb.size() > 0){
+                    for(int i = 0; i < listdb.size(); i++){
+                        result.add(listdb.get(i).getList());
                     }
                 }
             }

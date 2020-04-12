@@ -21,7 +21,11 @@
                 android:id="@+id/btnThriller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/btnThriller"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@id/btnHistory"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +33,11 @@
                 android:id="@+id/btnHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/history"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@id/btnFiction"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +45,10 @@
                 android:id="@+id/btnFiction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/btnFiction"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,15 +56,22 @@
                 android:id="@+id/btnAdventure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/btnAdventure"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@id/btnThriller"
-                tools:layout_editor_absoluteX="176dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnClassic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/btnClassic"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnFiction" />
 
@@ -61,16 +79,23 @@
                 android:id="@+id/btnFantasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/fantasy"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@+id/btnClassic"
-                app:layout_constraintTop_toBottomOf="@+id/btnHistory"
-                tools:layout_editor_absoluteY="48dp" />
+                app:layout_constraintTop_toBottomOf="@+id/btnHistory" />
 
             <Button
                 android:id="@+id/btnHorror"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/horror"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@+id/btnFantasy"
                 app:layout_constraintTop_toBottomOf="@+id/btnThriller" />
 
@@ -78,7 +103,11 @@
                 android:id="@+id/btnBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drawable_botones"
                 android:text="@string/biography"
+                android:textColor="@color/color_texto_botones"
                 app:layout_constraintStart_toEndOf="@+id/btnHorror"
                 app:layout_constraintTop_toBottomOf="@+id/btnAdventure" />
 
@@ -87,13 +116,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutBtn">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDiscover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="392dp"
+                android:layout_height="640dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
