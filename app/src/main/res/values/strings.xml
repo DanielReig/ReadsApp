@@ -19,6 +19,8 @@
     <string name="deleteOneDialogTitle">Are you sure you want to delete this?</string>
     <string name="okDeleteDialog">OK</string>
     <string name="cancelDeleteDialog">Cancel</string>
+    <string name="noList">you have no lists created</string>
+
 
 
     <!--    DISCOVER-->

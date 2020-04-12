@@ -2,6 +2,7 @@ package com.example.readsapp.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +20,12 @@ import androidx.fragment.app.Fragment;
 import com.example.readsapp.R;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
+import com.example.readsapp.interfaz.Item;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.services.GoogleBookService;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookFragment extends Fragment {
@@ -37,9 +41,11 @@ public class BookFragment extends Fragment {
     private ImageView bookCover;
     private Button button;
     private BookDatabase database;
+    private String textList;
+    private int Arraylist;
 
-    public  BookFragment(boolean n, Book b){
-        newBook = n;
+    public  BookFragment(String s, Book b){
+        textList = s;
         book = b;
     }
 
@@ -53,7 +59,7 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_book, container, false);
-        if(newBook){
+        if(textList == ""){
            button = v.findViewById(R.id.bCalen);
            button.setText("Add");
            button.setOnClickListener(new View.OnClickListener() {
@@ -112,22 +118,48 @@ public class BookFragment extends Fragment {
     }
 
     private void OnClickButton(){
-        AlertDialog.Builder builder = new AlertDialog.Builder((getContext()));
-        builder.setTitle("Add book to list")
-                .setItems(R.array.listBook, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Gson gson = new Gson();
-                                String b = gson.toJson(book);
-                                //database.BookDao().addBook(new dbbook(b,"prueba"));
-                            }
-                        }).run();
+        ArrayList<String> list = getLists();
+        CharSequence[] listChar = new CharSequence[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            listChar[i] = list.get(i);
+        }
+        if(list.size() > 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder((getContext()));
+            builder.setTitle("Add book to list")
+                    .setItems(listChar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Gson gson = new Gson();
+                                    String b = gson.toJson(book);
+                                    database.BookDao().addBook(new dbbook(b,listChar[which].toString()));
+                                }
+                            }).start();
+                        }
+                    });
+            builder.create().show();
+            button.setVisibility(View.INVISIBLE);
+        }else{
+            Toast.makeText(getContext(), R.string.noList, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private ArrayList<String> getLists() {
+        ArrayList<String> result = new ArrayList<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> s = database.BookDao().getlist();
+                if(s.size() > 0){
+                    for(int i = 0; i < s.size(); i++){
+                        result.add(s.get(i));
                     }
-                });
-        builder.create().show();
-        button.setVisibility(View.INVISIBLE);
+                }
+            }
+        }).start();
+        return result;
     }
 }

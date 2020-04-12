@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.services.GoogleBookService;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,12 @@ public class AdapterListBook extends RecyclerView.Adapter<AdapterListBook.ViewHo
 
         // Update the subViews within the holder with information from the data source
         holder.tv.setText(data.get(position).getText());
+        data.get(position).setImage(holder.iv);
+        GoogleBookService googleBookServicee = new GoogleBookService();
+
+        if(data.get(position).getUrl() != null) {
+            googleBookServicee.setBookThumbnailAdapter(data.get(position).getUrl(), holder.iv);
+        }
         /**holder.iv.setImageIcon(context.getResources().);
         holder.tv.setCompoundDrawablesWithIntrinsicBounds(
                 context.getResources().getDrawable(data.get(position).getImage(),null),

@@ -16,29 +16,42 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterListBook;
+import com.example.readsapp.database.BookDatabase;
+import com.example.readsapp.database.dbbook;
+import com.example.readsapp.interfaz.Item;
 import com.example.readsapp.interfaz.bookItem;
 import com.example.readsapp.models.Book;
+import com.example.readsapp.services.GoogleBookService;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListBookFragment extends Fragment {
 
     private ArrayList<bookItem> listbook;
+    private List<dbbook> list;
     private RecyclerView rvb;
-    private Book book;
     private RecyclerView.LayoutManager managerb ;
     private AdapterListBook adapterb;
+    private String textlist;
+    private BookDatabase database;
 
-    public ListBookFragment(){}
+    public ListBookFragment(String text){
+        this.textlist = text;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listbook = generateData();
+        database = BookDatabase.getInstance(getContext());
+        listbook = generateBooks();
         adapterb = new AdapterListBook(getContext(), listbook, new AdapterListBook.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                BookFragment fragment = new BookFragment(false, book);
+                Gson gson = new Gson();
+                Book book = gson.fromJson(list.get(++position).getBook(),Book.class);
+                BookFragment fragment = new BookFragment(textlist, book);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
@@ -53,10 +66,18 @@ public class ListBookFragment extends Fragment {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                adapterb.removeItem(position);
-                                adapterb.notifyDataSetChanged();
+                                int index = position;
+                                final dbbook data = list.get(++index);
+                                database.BookDao().deleteBook(data);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        adapterb.removeItem(position);
+                                        adapterb.notifyDataSetChanged();
+                                    }
+                                });
                             }
-                        }).run();
+                        }).start();
                     }
                 }).setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
                     @Override
@@ -67,7 +88,6 @@ public class ListBookFragment extends Fragment {
                 dialog.create().show();
             }
         });
-
     }
     @Nullable
     @Override
@@ -78,14 +98,31 @@ public class ListBookFragment extends Fragment {
             managerb = new LinearLayoutManager(getContext());
             this.rvb.setLayoutManager(managerb);
             this.rvb.setAdapter(adapterb);
+            adapterb.notifyDataSetChanged();
         }
         return v;
     }
 
-    private ArrayList<bookItem> generateData() {
+    private ArrayList<bookItem> generateBooks() {
         ArrayList<bookItem> result = new ArrayList<>();
-        result.add(new bookItem(" Moby Dick", null));
-        result.add(new bookItem(" El conde dracula",null));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                list = database.BookDao().getBooks(textlist);
+                Gson gson = new Gson();
+                if(list.size() > 0){
+                    for(int i = 1; i < list.size(); i++){
+                        bookItem bookitem = new bookItem();
+                        Book book = gson.fromJson(list.get(i).getBook(),Book.class);
+                        if((book.getVolumeInfo() != null)&& (book.getVolumeInfo().getImageLinks() != null)) {
+                            bookitem.setUrl(book.getImageLinks().getThumbnail());
+                        }
+                        bookitem.setText(book.getTitle());
+                        result.add(bookitem);
+                    }
+                }
+            }
+        }).start();
         return result;
     }
 }

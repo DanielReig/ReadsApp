@@ -43,7 +43,7 @@ public class SearchFragment extends Fragment {
         adapterb = new AdapterListSearch(getContext(), listbook, new AdapterListSearch.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                BookFragment fragment = new BookFragment(true, books.getItems().get(position));
+                BookFragment fragment = new BookFragment("", books.getItems().get(position));
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 transaction.replace(R.id.fragment_container,fragment);

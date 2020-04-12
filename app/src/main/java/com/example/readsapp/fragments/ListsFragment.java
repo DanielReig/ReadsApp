@@ -44,7 +44,7 @@ public class ListsFragment extends Fragment {
         adapter = new AdapterList(getContext(), list, new AdapterList.OnItemClickListener() {
             @Override
             public void onItemClicked(int position) {
-                ListBookFragment fragment = new ListBookFragment();
+                ListBookFragment fragment = new ListBookFragment(list.get(position).getText());
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
@@ -107,9 +107,19 @@ public class ListsFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (!text.getText().toString().isEmpty()) {
-                            list.add(new Item(text.getText().toString(), android.R.drawable.ic_menu_sort_by_size));
-                            database.BookDao().addlist(new dbbook(null, text.getText().toString()));
-                            adapter.notifyDataSetChanged();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    list.add(new Item(text.getText().toString(), android.R.drawable.ic_menu_sort_by_size));
+                                    database.BookDao().addlist(new dbbook(null, text.getText().toString()));
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+                            }).start();
                         } else {
                             Toast.makeText(getContext(), R.string.create_entry_msg, Toast.LENGTH_SHORT).show();
                         }
@@ -136,7 +146,7 @@ public class ListsFragment extends Fragment {
                     }
                 }
             }
-        }).run();
+        }).start();
         return result;
     }
 }
