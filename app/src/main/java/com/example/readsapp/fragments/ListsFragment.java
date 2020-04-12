@@ -130,8 +130,10 @@ public class ListsFragment extends Fragment {
             @Override
             public void run() {
                 List<String> s = database.BookDao().getlist();
-                for(int i = 0; i < s.size(); i++){
-                    result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+                if(s.size() > 0){
+                    for(int i = 0; i < s.size(); i++){
+                        result.add(new Item(s.get(i), android.R.drawable.ic_menu_sort_by_size));
+                    }
                 }
             }
         }).run();

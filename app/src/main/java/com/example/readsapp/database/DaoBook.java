@@ -32,6 +32,6 @@ public interface DaoBook {
     @Query("SELECT book FROM MyBooks WHERE listBook " + "= :text")
     List<String> getBooks(String text);
 
-    @Query("SELECT listBook FROM MyBooks WHERE book = null")
+    @Query("SELECT listBook FROM MyBooks WHERE book IS NULL OR book = ';'")
     List<String> getlist();
 }

@@ -1,0 +1,9 @@
+<resources>
+    <!-- Reply Preference -->
+
+    <string-array name="listBook">
+        <item>list 1</item>
+        <item>list 2</item>
+        <item>list 3</item>
+    </string-array>
+</resources>

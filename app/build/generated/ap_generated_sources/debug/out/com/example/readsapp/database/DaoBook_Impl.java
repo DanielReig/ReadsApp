@@ -133,7 +133,7 @@ public final class DaoBook_Impl implements DaoBook {
 
   @Override
   public List<String> getlist() {
-    final String _sql = "SELECT listBook FROM MyBooks WHERE book = null";
+    final String _sql = "SELECT listBook FROM MyBooks WHERE book IS NULL OR book = ';'";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     __db.assertNotSuspendingTransaction();
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
