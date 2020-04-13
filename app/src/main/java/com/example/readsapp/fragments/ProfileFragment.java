@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
                 transaction.commit();
             }
         });
-        
+
         DataUser();
         return v;
 

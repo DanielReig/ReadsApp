@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.readsapp.database.dbUser;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterListSearch;
+import com.example.readsapp.database.UserDatabase;
 import com.example.readsapp.interfaz.bookItem;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.BookList;
+import com.example.readsapp.models.User;
 import com.example.readsapp.services.GoogleBookService;
 
 import java.util.ArrayList;
@@ -32,13 +35,14 @@ public class SearchFragment extends Fragment {
     private EditText searchtext;
     private RecyclerView.LayoutManager managerb ;
     private AdapterListSearch adapterb;
+    private UserDatabase userDatabase;
 
     public SearchFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //listbook = generateData();
+        userDatabase = UserDatabase.getInstance(getContext());
         listbook = new ArrayList<bookItem>();
         adapterb = new AdapterListSearch(getContext(), listbook, new AdapterListSearch.OnItemClickListener() {
             @Override
@@ -78,14 +82,17 @@ public class SearchFragment extends Fragment {
             @Override
             public void run() {
                 GoogleBookService googleBookService = new GoogleBookService();
-                books = googleBookService.searchBookByTitle(searchtext.getText().toString());
+                dbUser user = userDatabase.UserDao().getUser();
+                if(user != null && user.getSearch() == "ISBN"){
+                    //busqueda por isbn
+                }else {
+                    books = googleBookService.searchBookByTitle(searchtext.getText().toString());
+                }
                 for(int i = 0; i < books.getItems().size(); i++){
                     bookItem book = new bookItem();
                     if((books.getItems().get(i).getVolumeInfo() != null)&& (books.getItems().get(i).getVolumeInfo().getImageLinks() != null)) {
                         book.setUrl(books.getItems().get(i).getImageLinks().getThumbnail());
                     }
-                   // book.setImage(new ImageView(getContext()));
-                   // googleBookService.setBookThumbnail(books.getItems().get(i),book.getImage());
                     book.setText(books.getItems().get(i).getTitle());
                     listbook.add(book);
                 }
@@ -93,11 +100,7 @@ public class SearchFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                      //  GoogleBookService googleBookServicee = new GoogleBookService();
                         adapterb.notifyDataSetChanged();
-                      //  for(int i = 0; i < listbook.size(); i++){
-                      //      googleBookServicee.setBookThumbnail(books.getItems().get(i),listbook.get(i).getImage());
-                      //  }
                     }
                 });
             }
