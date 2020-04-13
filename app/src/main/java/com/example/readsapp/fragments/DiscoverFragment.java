@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 public class DiscoverFragment extends Fragment {
     private ArrayList<bookItem> listbook;
     private RecyclerView rvb;
-    private Button btnFiccion, btnHistory, btnMistery, btnAdventure, btnClassics, btnFantasy, btnHorror, btnBiography;
+    private Spinner spinner;
     private BookList books;
     private RecyclerView.LayoutManager managerb;
     private AdapterDiscover adapterb;
@@ -48,43 +50,51 @@ public class DiscoverFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        OnClickSubject("Fiction");
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                int id = v.getId();
-                String subject = "";
-                if (id == R.id.btnFiction) subject = "Fiction";
-                if (id == R.id.btnHistory) subject = "History";
-                if (id == R.id.btnThriller) subject = "Mystery";
-                if (id == R.id.btnAdventure) subject = "Adventure";
-                if (id == R.id.btnClassic) subject = "Classic";
-                if (id == R.id.btnFantasy) subject = "Fantasy";
-                if (id == R.id.btnHorror) subject = "Horror";
-                if (id == R.id.btnBio) subject = "Biography";
-                OnClickSubject(subject);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        OnClickSubject("Fiction");
+                        break;
+                    case 1:
+                        OnClickSubject("Thriller");
+                        break;
+                    case 2:
+                        OnClickSubject("History");
+                        break;
+                    case 3:
+                        OnClickSubject("Adventure");
+                        break;
+                    case 4:
+                        OnClickSubject("Classic");
+                        break;
+                    case 5:
+                        OnClickSubject("Fantasy");
+                        break;
+                    case 6:
+                        OnClickSubject("Horror");
+                        break;
+                    case 7:
+                        OnClickSubject("Biography");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                OnClickSubject("Fiction");
             }
         };
 
+        this.spinner = getView().findViewById(R.id.spinner);
+        this.spinner.setOnItemSelectedListener(listener);
+
+        OnClickSubject("Fiction");
+
         this.rvb = getView().findViewById(R.id.rvDiscover);
-
-        btnFiccion = getView().findViewById(R.id.btnFiction);
-        btnHistory = getView().findViewById(R.id.btnHistory);
-        btnMistery = getView().findViewById(R.id.btnThriller);
-        btnAdventure = getView().findViewById(R.id.btnAdventure);
-        btnClassics = getView().findViewById(R.id.btnClassic);
-        btnFantasy = getView().findViewById(R.id.btnFantasy);
-        btnHorror = getView().findViewById(R.id.btnHorror);
-        btnBiography = getView().findViewById(R.id.btnBio);
-
-        btnFiccion.setOnClickListener(onClickListener);
-        btnHistory.setOnClickListener(onClickListener);
-        btnMistery.setOnClickListener(onClickListener);
-        btnAdventure.setOnClickListener(onClickListener);
-        btnClassics.setOnClickListener(onClickListener);
-        btnFantasy.setOnClickListener(onClickListener);
-        btnHorror.setOnClickListener(onClickListener);
-        btnBiography.setOnClickListener(onClickListener);
 
         if (getContext() != null) {
             managerb = new GridLayoutManager(getContext(), 3);

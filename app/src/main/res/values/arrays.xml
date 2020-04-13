@@ -6,4 +6,15 @@
         <item>list 2</item>
         <item>list 3</item>
     </string-array>
+
+    <string-array name="genres">
+        <item>Fiction</item>
+        <item>Thriller</item>
+        <item>History</item>
+        <item>Adventure</item>
+        <item>Classic</item>
+        <item>Fantasy</item>
+        <item>Horror</item>
+        <item>Biography</item>
+    </string-array>
 </resources>

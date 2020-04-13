@@ -83,18 +83,21 @@ public class SearchFragment extends Fragment {
             public void run() {
                 GoogleBookService googleBookService = new GoogleBookService();
                 dbUser user = userDatabase.UserDao().getUser();
-                if(user != null && user.getSearch() == "ISBN"){
-                    //busqueda por isbn
+                if(user != null && user.getSearch().equals("ISBN")){
+                    books = googleBookService.searchBookByISBN(searchtext.getText().toString());
                 }else {
                     books = googleBookService.searchBookByTitle(searchtext.getText().toString());
                 }
-                for(int i = 0; i < books.getItems().size(); i++){
-                    bookItem book = new bookItem();
-                    if((books.getItems().get(i).getVolumeInfo() != null)&& (books.getItems().get(i).getVolumeInfo().getImageLinks() != null)) {
-                        book.setUrl(books.getItems().get(i).getImageLinks().getThumbnail());
+
+                if(books.getItems()!= null) {
+                    for (int i = 0; i < books.getItems().size(); i++) {
+                        bookItem book = new bookItem();
+                        if ((books.getItems().get(i).getVolumeInfo() != null) && (books.getItems().get(i).getVolumeInfo().getImageLinks() != null)) {
+                            book.setUrl(books.getItems().get(i).getImageLinks().getThumbnail());
+                        }
+                        book.setText(books.getItems().get(i).getTitle());
+                        listbook.add(book);
                     }
-                    book.setText(books.getItems().get(i).getTitle());
-                    listbook.add(book);
                 }
                 /*de esta manera se actualiza la interfaz*/
                 getActivity().runOnUiThread(new Runnable() {

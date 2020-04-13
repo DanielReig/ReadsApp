@@ -45,6 +45,31 @@ public class GoogleBookService {
         return book;
     }
 
+    public BookList searchBookByISBN(String isbn){
+        String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+
+        BookList bookList = new BookList();
+
+        try {
+            URL url = new URL(urlString);
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            Gson gson = new Gson();
+
+            bookList = gson.fromJson(reader,BookList.class);
+
+            reader.close();
+            connection.disconnect();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
+
     public BookList searchBookByTitle(String title){
         String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + title;
 
