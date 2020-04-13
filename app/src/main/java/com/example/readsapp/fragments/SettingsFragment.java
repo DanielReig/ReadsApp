@@ -28,12 +28,16 @@ public class SettingsFragment extends Fragment {
     private Button saveData;
     private EditText nameuser;
     private EditText ageuser;
+    private String name;
+    private String age;
+
     public SettingsFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userDatabase = UserDatabase.getInstance(getContext());
+        SelectedButton();
     }
 
     @Nullable
@@ -46,6 +50,14 @@ public class SettingsFragment extends Fragment {
         nameuser = v.findViewById(R.id.editNameUser);
         ageuser = v.findViewById(R.id.editAgeUser);
         saveData = v.findViewById(R.id.bSaveDataUser);
+        nameuser.setText(name);
+        ageuser.setText(age);
+        if(methodSarch.compareTo("title") == 0){
+            method.check(R.id.rbtitle);
+        }else{
+            method.check(R.id.rbisbn);
+        }
+
         method.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -104,6 +116,24 @@ public class SettingsFragment extends Fragment {
                 usernew.setSearch(methodSarch);
                 userDatabase.UserDao().deleteUser(userold);
                 userDatabase.UserDao().addUser(usernew);
+            }
+        }).start();
+    }
+
+    private void SelectedButton(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dbUser userold = userDatabase.UserDao().getUser();
+                if(userold == null){
+                    methodSarch = "title";
+                    name = "";
+                    age = "";
+                }else{
+                    methodSarch = userold.getSearch();
+                    name = userold.getName();
+                    age = String.valueOf(userold.getAge());
+                }
             }
         }).start();
     }
