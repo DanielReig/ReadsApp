@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.readsapp.R;
+import com.example.readsapp.adapters.AdapterList;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
 import com.example.readsapp.interfaz.Item;
@@ -43,6 +44,7 @@ public class BookFragment extends Fragment {
     private BookDatabase database;
     private String textList;
     private List<dbbook> listdb;
+    private ArrayList<String> list;
 
     public  BookFragment(String s, Book b){
         textList = s;
@@ -53,6 +55,7 @@ public class BookFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = BookDatabase.getInstance(getContext());
+        list = getLists();
     }
 
     @Nullable
@@ -118,7 +121,6 @@ public class BookFragment extends Fragment {
     }
 
     private void OnClickButton(){
-        ArrayList<String> list = getLists();
         CharSequence[] listChar = new CharSequence[list.size()];
         for(int i = 0; i < list.size(); i++){
             listChar[i] = list.get(i);
@@ -144,7 +146,6 @@ public class BookFragment extends Fragment {
         }else{
             Toast.makeText(getContext(), R.string.noList, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private ArrayList<String> getLists() {
@@ -163,12 +164,4 @@ public class BookFragment extends Fragment {
         return result;
     }
 
-    private void Addbooktolist(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                
-            }
-        }).start();
-    }
 }
