@@ -5,10 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.readsapp.models.Book;
-
-import java.util.ArrayList;
-
 @Entity(tableName = "MyBooks")
 public class dbbook {
 

@@ -45,7 +45,6 @@ public class SearchFragment extends Fragment {
             public void onItemClicked(int position) {
                 BookFragment fragment = new BookFragment("", books.getItems().get(position));
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.commit();
             }

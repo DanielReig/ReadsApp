@@ -33,4 +33,14 @@
     <string name="horror">Horror</string>
     <string name="biography">Biography</string>
     <string name="history">History</string>
+
+    <!--    SETTINGS-->
+    <string name="search_title">Search Method</string>
+    <string name="search_descp">choose if you want to search for a book by ISBN or by title</string>
+    <string name="method_title">Title</string>
+    <string name="method_ISBN">ISBN</string>
+    <string name="Data_user">Data User</string>
+    <string name="name_user">Name: </string>
+    <string name="age_user">Age: </string>
+    <string name="button_setting">Save Data User</string>
 </resources>
