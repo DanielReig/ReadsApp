@@ -121,6 +121,12 @@ public class ListBookFragment extends Fragment {
                         result.add(bookitem);
                     }
                 }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapterb.notifyDataSetChanged();
+                    }
+                });
             }
         }).start();
         return result;

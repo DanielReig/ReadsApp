@@ -136,7 +136,10 @@ public class BookFragment extends Fragment {
                                 public void run() {
                                     Gson gson = new Gson();
                                     String b = gson.toJson(book);
-                                    database.BookDao().addBook(new dbbook(b,listChar[which].toString()));
+                                    dbbook db = database.BookDao().getBooktolist(listChar[which].toString(),b);
+                                    if(db == null){
+                                        database.BookDao().addBook(new dbbook(b,listChar[which].toString()));
+                                    }
                                 }
                             }).start();
                         }
