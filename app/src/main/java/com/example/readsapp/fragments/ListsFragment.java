@@ -158,6 +158,13 @@ public class ListsFragment extends Fragment {
                         result.add(new Item(listdb.get(i).getList(), android.R.drawable.ic_menu_sort_by_size));
                     }
                 }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
         }).start();
         return result;
