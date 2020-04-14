@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class DiscoverFragment extends Fragment {
     private RecyclerView rvb;
     private Spinner spinner;
     private BookList books;
+    private ProgressBar progressBar;
     private RecyclerView.LayoutManager managerb;
     private AdapterDiscover adapterb;
 
@@ -92,8 +94,7 @@ public class DiscoverFragment extends Fragment {
         this.spinner = getView().findViewById(R.id.spinner);
         this.spinner.setOnItemSelectedListener(listener);
 
-        OnClickSubject("Fiction");
-
+        this.progressBar = getView().findViewById(R.id.progressBar);
         this.rvb = getView().findViewById(R.id.rvDiscover);
 
         if (getContext() != null) {
@@ -106,10 +107,10 @@ public class DiscoverFragment extends Fragment {
 
     public void OnClickSubject(String subject) {
         listbook.clear();
+        progressBar.setVisibility(View.VISIBLE);
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 GoogleBookService googleBookService = new GoogleBookService();
                 books = googleBookService.getBooksBySubject(subject);
                 for (int i = 0; i < books.getItems().size(); i++) {
@@ -121,12 +122,15 @@ public class DiscoverFragment extends Fragment {
                     listbook.add(book);
                 }
                 /*de esta manera se actualiza la interfaz*/
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapterb.notifyDataSetChanged();
-                    }
-                });
+                if(getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            adapterb.notifyDataSetChanged();
+                        }
+                    });
+                }
             }
         }).start();
 
