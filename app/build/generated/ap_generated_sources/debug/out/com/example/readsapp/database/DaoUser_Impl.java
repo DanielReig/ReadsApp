@@ -27,7 +27,7 @@ public final class DaoUser_Impl implements DaoUser {
     this.__insertionAdapterOfdbUser = new EntityInsertionAdapter<dbUser>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR REPLACE INTO `MyUser` (`_ID`,`name`,`age`,`search`) VALUES (nullif(?, 0),?,?,?)";
+        return "INSERT OR REPLACE INTO `MyUser` (`_ID`,`name`,`age`,`search`,`image`) VALUES (nullif(?, 0),?,?,?,?)";
       }
 
       @Override
@@ -43,6 +43,11 @@ public final class DaoUser_Impl implements DaoUser {
           stmt.bindNull(4);
         } else {
           stmt.bindString(4, value.getSearch());
+        }
+        if (value.getImage() == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.getImage());
         }
       }
     };
@@ -60,7 +65,7 @@ public final class DaoUser_Impl implements DaoUser {
     this.__updateAdapterOfdbUser = new EntityDeletionOrUpdateAdapter<dbUser>(__db) {
       @Override
       public String createQuery() {
-        return "UPDATE OR ABORT `MyUser` SET `_ID` = ?,`name` = ?,`age` = ?,`search` = ? WHERE `_ID` = ?";
+        return "UPDATE OR ABORT `MyUser` SET `_ID` = ?,`name` = ?,`age` = ?,`search` = ?,`image` = ? WHERE `_ID` = ?";
       }
 
       @Override
@@ -77,7 +82,12 @@ public final class DaoUser_Impl implements DaoUser {
         } else {
           stmt.bindString(4, value.getSearch());
         }
-        stmt.bindLong(5, value.getId());
+        if (value.getImage() == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.getImage());
+        }
+        stmt.bindLong(6, value.getId());
       }
     };
   }
@@ -189,6 +199,7 @@ public final class DaoUser_Impl implements DaoUser {
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
       final int _cursorIndexOfAge = CursorUtil.getColumnIndexOrThrow(_cursor, "age");
       final int _cursorIndexOfSearch = CursorUtil.getColumnIndexOrThrow(_cursor, "search");
+      final int _cursorIndexOfImage = CursorUtil.getColumnIndexOrThrow(_cursor, "image");
       final dbUser _result;
       if(_cursor.moveToFirst()) {
         _result = new dbUser();
@@ -204,6 +215,29 @@ public final class DaoUser_Impl implements DaoUser {
         final String _tmpSearch;
         _tmpSearch = _cursor.getString(_cursorIndexOfSearch);
         _result.setSearch(_tmpSearch);
+        final String _tmpImage;
+        _tmpImage = _cursor.getString(_cursorIndexOfImage);
+        _result.setImage(_tmpImage);
+      } else {
+        _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public String getImageUser() {
+    final String _sql = "SELECT image FROM MyUser";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final String _result;
+      if(_cursor.moveToFirst()) {
+        _result = _cursor.getString(0);
       } else {
         _result = null;
       }

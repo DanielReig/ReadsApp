@@ -1,11 +1,16 @@
 package com.example.readsapp.database;
 
+import android.net.Uri;
+import android.widget.ImageView;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import java.sql.Blob;
 
 @Dao
 public interface DaoUser {
@@ -30,5 +35,8 @@ public interface DaoUser {
 
     @Update
     void UpdateUser(dbUser user);
+
+    @Query("SELECT image FROM MyUser")
+    String getImageUser();
 
 }

@@ -1,8 +1,13 @@
 package com.example.readsapp.database;
 
+import android.net.Uri;
+import android.widget.ImageView;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.sql.Blob;
 
 @Entity(tableName = "MyUser")
 public class dbUser {
@@ -19,12 +24,16 @@ public class dbUser {
     @ColumnInfo(name = "search")
     private String search;
 
+    @ColumnInfo(name = "image")
+    private String image;
+
     public dbUser(){}
 
     public dbUser(String n, int a){
         this.name = n;
         this.age = a;
         this.search = "title";
+        this.image = "";
     }
 
     public int getId() {
@@ -57,5 +66,13 @@ public class dbUser {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

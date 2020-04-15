@@ -12,7 +12,7 @@
     <string name="name_setting">Setting</string>
     <string name="Create_list">Create new list</string>
     <string name="name_create">Create</string>
-    <string name="name_statistic">Statistics</string>
+    <string name="name_Image">Image</string>
     <string name="create_ok_msg">list created successfully</string>
     <string name="create_cancel_msg">canceled new list</string>
     <string name="create_entry_msg">you have not named the new list</string>

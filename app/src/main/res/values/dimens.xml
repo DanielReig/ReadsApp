@@ -5,5 +5,7 @@
     <dimen name="text_height">50dp</dimen>
     <dimen name="text_min">6dp</dimen>
     <dimen name="text_max">30dp</dimen>
+    <dimen name="dimen_hi">60dp</dimen>
+    <dimen name="dimen_wa">60dp</dimen>
     <dimen name="text_step">4dp</dimen>
 </resources>

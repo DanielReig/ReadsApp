@@ -92,6 +92,7 @@ public class SettingsFragment extends Fragment {
                     }
                     dbUser usernew = new dbUser(name, Integer.valueOf(age));
                     usernew.setSearch(methodSarch);
+                    usernew.setImage(userold.getImage());
                     userDatabase.UserDao().deleteUser(userold);
                     userDatabase.UserDao().addUser(usernew);
                 }
@@ -114,6 +115,7 @@ public class SettingsFragment extends Fragment {
                 }
                 dbUser usernew = new dbUser(userold.getName(),userold.getAge());
                 usernew.setSearch(methodSarch);
+                usernew.setImage(userold.getImage());
                 userDatabase.UserDao().deleteUser(userold);
                 userDatabase.UserDao().addUser(usernew);
             }
@@ -130,9 +132,15 @@ public class SettingsFragment extends Fragment {
                     name = "";
                     age = "";
                 }else{
-                    methodSarch = userold.getSearch();
-                    name = userold.getName();
-                    age = String.valueOf(userold.getAge());
+                    if(userold.getName() == null){
+                        methodSarch = "title";
+                        name = "";
+                        age = "";
+                    }else{
+                        methodSarch = userold.getSearch();
+                        name = userold.getName();
+                        age = String.valueOf(userold.getAge());
+                    }
                 }
             }
         }).start();
