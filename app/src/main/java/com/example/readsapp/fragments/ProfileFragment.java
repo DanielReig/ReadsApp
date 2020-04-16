@@ -2,6 +2,7 @@ package com.example.readsapp.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -27,7 +28,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.readsapp.R;
 import com.example.readsapp.database.UserDatabase;
 import com.example.readsapp.database.dbUser;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 
 import javax.xml.transform.Result;
@@ -108,18 +114,19 @@ public class ProfileFragment extends Fragment {
                         age.setText(String.valueOf(ageUser));
                         if(uri != null || uri != ""){
                             ///??PROBLEMAS AL CARGAR LA IMAGEN
-                           // Uri u = Uri.parse(uri);
-                           // image.setImageURI(u);
+                           Uri u = Uri.parse(uri);
+                            image.setImageURI(u);
                         }
                     }
                 });
+
             }
         }).start();
     }
 
     private void ImageProfile(){
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/");
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
         startActivityForResult(intent.createChooser(intent,"seleccionar aplicacion"),10);
     }
 
@@ -151,4 +158,5 @@ public class ProfileFragment extends Fragment {
             }
         }).start();
     }
+
 }
