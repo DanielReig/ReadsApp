@@ -29,6 +29,9 @@ public interface DaoBook {
     @Delete
     void deleteList(dbbook list);
 
+    @Query("SELECT book FROM MyBooks")
+    List<String> getAllBook();
+
     @Query("SELECT * FROM MyBooks WHERE listBook " + "= :text")
     List<dbbook> getBooks(String text);
 

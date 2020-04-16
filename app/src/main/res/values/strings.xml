@@ -47,4 +47,9 @@
     <!-- CHALLENGES -->
     <string name="tab_current">CURRENT</string>
     <string name="tab_completed">COMPLETED</string>
+
+    <!-- CALENDAR -->
+    <string name="title_calendar_dialog">Create date book</string>
+    <string name="cale_date">Date: </string>
+    <string name="cale_book">Book: </string>
 </resources>

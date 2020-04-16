@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvdialogCale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="@dimen/text_max"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:text="@string/title_calendar_dialog"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tvCalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/cale_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvdialogCale" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/tvCalDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvdialogCale" />
+
+    <TextView
+        android:id="@+id/tvCalBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/cale_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCalDate" />
+
+    <Spinner
+        android:id="@+id/spinCal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/tvCalBook"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

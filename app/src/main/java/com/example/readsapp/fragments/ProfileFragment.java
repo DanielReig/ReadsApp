@@ -114,8 +114,8 @@ public class ProfileFragment extends Fragment {
                         age.setText(String.valueOf(ageUser));
                         if(uri != null || uri != ""){
                             ///??PROBLEMAS AL CARGAR LA IMAGEN
-                           Uri u = Uri.parse(uri);
-                            image.setImageURI(u);
+                            //Uri u = Uri.parse(uri);
+                           // image.setImageURI(u);
                         }
                     }
                 });

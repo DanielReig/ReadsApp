@@ -107,6 +107,26 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
+  public List<String> getAllBook() {
+    final String _sql = "SELECT book FROM MyBooks";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final List<String> _result = new ArrayList<String>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final String _item;
+        _item = _cursor.getString(0);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
   public List<dbbook> getBooks(final String text) {
     final String _sql = "SELECT * FROM MyBooks WHERE listBook = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
