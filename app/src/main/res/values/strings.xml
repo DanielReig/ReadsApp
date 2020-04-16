@@ -43,4 +43,8 @@
     <string name="name_user">Name: </string>
     <string name="age_user">Age: </string>
     <string name="button_setting">Save Data User</string>
+
+    <!-- CHALLENGES -->
+    <string name="tab_current">CURRENT</string>
+    <string name="tab_completed">COMPLETED</string>
 </resources>
