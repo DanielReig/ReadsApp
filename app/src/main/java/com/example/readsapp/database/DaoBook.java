@@ -7,6 +7,7 @@ import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.readsapp.models.Book;
 
@@ -40,4 +41,12 @@ public interface DaoBook {
 
     @Query("SELECT * FROM MyBooks WHERE listBook " + "= :list AND book " + "= :book")
     dbbook getBooktolist(String list, String book);
+
+    //return all dbook that book = string
+    @Query("SELECT * FROM MyBooks WHERE book " + "= :book")
+    List<dbbook> getdbook(String book);
+
+    @Update
+    void updateBook(dbbook book);
+
 }

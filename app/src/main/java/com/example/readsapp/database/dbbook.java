@@ -19,11 +19,15 @@ public class dbbook {
     @ColumnInfo(name = "listBook")
     private String list;
 
+    @ColumnInfo(name = "Date")
+    private String date;
+
     public dbbook(){}
 
     public dbbook(String b,String s){
         this.book = b;
         this.list = s;
+        this.date = "";
     }
 
     public String getBook() {
@@ -49,5 +53,13 @@ public class dbbook {
 
     public void setList(String list) {
         this.list = list;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

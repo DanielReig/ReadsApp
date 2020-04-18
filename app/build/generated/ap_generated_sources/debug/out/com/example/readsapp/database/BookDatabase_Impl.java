@@ -30,9 +30,9 @@ public final class BookDatabase_Impl extends BookDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `MyBooks` (`_ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `book` TEXT, `listBook` TEXT NOT NULL)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `MyBooks` (`_ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `book` TEXT, `listBook` TEXT NOT NULL, `Date` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4fcafbcfbd2519d83fd3f76bd37f400c')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de715176399d921f77f233cb6ed0db46')");
       }
 
       @Override
@@ -76,10 +76,11 @@ public final class BookDatabase_Impl extends BookDatabase {
 
       @Override
       protected RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsMyBooks = new HashMap<String, TableInfo.Column>(3);
+        final HashMap<String, TableInfo.Column> _columnsMyBooks = new HashMap<String, TableInfo.Column>(4);
         _columnsMyBooks.put("_ID", new TableInfo.Column("_ID", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMyBooks.put("book", new TableInfo.Column("book", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMyBooks.put("listBook", new TableInfo.Column("listBook", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMyBooks.put("Date", new TableInfo.Column("Date", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysMyBooks = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesMyBooks = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoMyBooks = new TableInfo("MyBooks", _columnsMyBooks, _foreignKeysMyBooks, _indicesMyBooks);
@@ -91,7 +92,7 @@ public final class BookDatabase_Impl extends BookDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "4fcafbcfbd2519d83fd3f76bd37f400c", "fc73696bdbcb8c871a2dd514d1a58035");
+    }, "de715176399d921f77f233cb6ed0db46", "ffac42dbfdda649a349b060c0910d7dd");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

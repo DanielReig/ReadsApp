@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,9 +19,9 @@ import androidx.fragment.app.Fragment;
 import com.example.readsapp.R;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
-import com.example.readsapp.interfaz.Item;
+import com.example.readsapp.models.Book;
+import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +29,28 @@ public class CalendarFragment extends Fragment {
 
     private CalendarView calendar;
     private BookDatabase database;
-    private ArrayList<String> listBook;
+    private List<String> listTitle;
+    private List<String> listbook;
     private ArrayAdapter<String> adapter;
+    private int select;
+    private AdapterView.OnItemClickListener listener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = BookDatabase.getInstance(getContext());
-        listBook = getBooks();
-        SimpleAdapter ad = new SimpleAdapter(getContext(),R.layout.support_simple_spinner_dropdown_item,);
-        //adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,listBook);
+        listTitle = new ArrayList<String>();
+        listbook = new ArrayList<String>();
+        getBooks();
+        adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,listTitle);
+        
+        listener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                select = position;
+            }
+
+        };
     }
 
     @Nullable
@@ -64,12 +76,24 @@ public class CalendarFragment extends Fragment {
         TextView date = v.findViewById(R.id.tvDate);
         date.setText(d);
         Spinner books = v.findViewById(R.id.spinCal);
-        //books.setAdapter(adapter);
+        //listener spinner
+        //books.setOnItemClickListener(listener);
+        books.setAdapter(adapter);
         dialog.setView(v)
                 .setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                List<dbbook> dbbooks = database.BookDao().getdbook(listbook.get(select));
+                                for(int i = 0; i < dbbooks.size(); i++){
+                                    dbbook db  = dbbooks.get(i);
+                                    db.setDate(d);
+                                    database.BookDao().updateBook(db);
+                                }
+                            }
+                        }).start();
                     }
                 })
                 .setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
@@ -81,20 +105,25 @@ public class CalendarFragment extends Fragment {
         dialog.create().show();
     }
 
-    private ArrayList<String> getBooks() {
-        ArrayList<String> result = new ArrayList<>();
+    private void getBooks() {
+        listbook.clear();
+        listTitle.clear();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 List<String>  list = database.BookDao().getAllBook();
+                Gson gson = new Gson();
                 if(list.size() > 0){
                     for(int i = 0; i < list.size(); i++){
-                        result.add(list.get(i));
+                        Book book = gson.fromJson(list.get(i),Book.class);
+                        if(list.get(i) != null){
+                            listbook.add(list.get(i));
+                            listTitle.add(book.getTitle());
+                        }
                     }
                 }
             }
         }).start();
-        return result;
     }
 }
 

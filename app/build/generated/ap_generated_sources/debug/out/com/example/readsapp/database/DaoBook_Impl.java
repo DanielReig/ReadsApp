@@ -22,12 +22,14 @@ public final class DaoBook_Impl implements DaoBook {
 
   private final EntityDeletionOrUpdateAdapter<dbbook> __deletionAdapterOfdbbook;
 
+  private final EntityDeletionOrUpdateAdapter<dbbook> __updateAdapterOfdbbook;
+
   public DaoBook_Impl(RoomDatabase __db) {
     this.__db = __db;
     this.__insertionAdapterOfdbbook = new EntityInsertionAdapter<dbbook>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR REPLACE INTO `MyBooks` (`_ID`,`book`,`listBook`) VALUES (nullif(?, 0),?,?)";
+        return "INSERT OR REPLACE INTO `MyBooks` (`_ID`,`book`,`listBook`,`Date`) VALUES (nullif(?, 0),?,?,?)";
       }
 
       @Override
@@ -43,6 +45,11 @@ public final class DaoBook_Impl implements DaoBook {
         } else {
           stmt.bindString(3, value.getList());
         }
+        if (value.getDate() == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.getDate());
+        }
       }
     };
     this.__deletionAdapterOfdbbook = new EntityDeletionOrUpdateAdapter<dbbook>(__db) {
@@ -54,6 +61,33 @@ public final class DaoBook_Impl implements DaoBook {
       @Override
       public void bind(SupportSQLiteStatement stmt, dbbook value) {
         stmt.bindLong(1, value.getId());
+      }
+    };
+    this.__updateAdapterOfdbbook = new EntityDeletionOrUpdateAdapter<dbbook>(__db) {
+      @Override
+      public String createQuery() {
+        return "UPDATE OR ABORT `MyBooks` SET `_ID` = ?,`book` = ?,`listBook` = ?,`Date` = ? WHERE `_ID` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, dbbook value) {
+        stmt.bindLong(1, value.getId());
+        if (value.getBook() == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.getBook());
+        }
+        if (value.getList() == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, value.getList());
+        }
+        if (value.getDate() == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.getDate());
+        }
+        stmt.bindLong(5, value.getId());
       }
     };
   }
@@ -107,6 +141,18 @@ public final class DaoBook_Impl implements DaoBook {
   }
 
   @Override
+  public void updateBook(final dbbook book) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __updateAdapterOfdbbook.handle(book);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
   public List<String> getAllBook() {
     final String _sql = "SELECT book FROM MyBooks";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
@@ -142,6 +188,7 @@ public final class DaoBook_Impl implements DaoBook {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "_ID");
       final int _cursorIndexOfBook = CursorUtil.getColumnIndexOrThrow(_cursor, "book");
       final int _cursorIndexOfList = CursorUtil.getColumnIndexOrThrow(_cursor, "listBook");
+      final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "Date");
       final List<dbbook> _result = new ArrayList<dbbook>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final dbbook _item;
@@ -155,6 +202,9 @@ public final class DaoBook_Impl implements DaoBook {
         final String _tmpList;
         _tmpList = _cursor.getString(_cursorIndexOfList);
         _item.setList(_tmpList);
+        final String _tmpDate;
+        _tmpDate = _cursor.getString(_cursorIndexOfDate);
+        _item.setDate(_tmpDate);
         _result.add(_item);
       }
       return _result;
@@ -174,6 +224,7 @@ public final class DaoBook_Impl implements DaoBook {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "_ID");
       final int _cursorIndexOfBook = CursorUtil.getColumnIndexOrThrow(_cursor, "book");
       final int _cursorIndexOfList = CursorUtil.getColumnIndexOrThrow(_cursor, "listBook");
+      final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "Date");
       final List<dbbook> _result = new ArrayList<dbbook>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final dbbook _item;
@@ -187,6 +238,9 @@ public final class DaoBook_Impl implements DaoBook {
         final String _tmpList;
         _tmpList = _cursor.getString(_cursorIndexOfList);
         _item.setList(_tmpList);
+        final String _tmpDate;
+        _tmpDate = _cursor.getString(_cursorIndexOfDate);
+        _item.setDate(_tmpDate);
         _result.add(_item);
       }
       return _result;
@@ -218,6 +272,7 @@ public final class DaoBook_Impl implements DaoBook {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "_ID");
       final int _cursorIndexOfBook = CursorUtil.getColumnIndexOrThrow(_cursor, "book");
       final int _cursorIndexOfList = CursorUtil.getColumnIndexOrThrow(_cursor, "listBook");
+      final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "Date");
       final dbbook _result;
       if(_cursor.moveToFirst()) {
         _result = new dbbook();
@@ -230,8 +285,53 @@ public final class DaoBook_Impl implements DaoBook {
         final String _tmpList;
         _tmpList = _cursor.getString(_cursorIndexOfList);
         _result.setList(_tmpList);
+        final String _tmpDate;
+        _tmpDate = _cursor.getString(_cursorIndexOfDate);
+        _result.setDate(_tmpDate);
       } else {
         _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public List<dbbook> getdbook(final String book) {
+    final String _sql = "SELECT * FROM MyBooks WHERE book = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (book == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, book);
+    }
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "_ID");
+      final int _cursorIndexOfBook = CursorUtil.getColumnIndexOrThrow(_cursor, "book");
+      final int _cursorIndexOfList = CursorUtil.getColumnIndexOrThrow(_cursor, "listBook");
+      final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "Date");
+      final List<dbbook> _result = new ArrayList<dbbook>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final dbbook _item;
+        _item = new dbbook();
+        final int _tmpId;
+        _tmpId = _cursor.getInt(_cursorIndexOfId);
+        _item.setId(_tmpId);
+        final String _tmpBook;
+        _tmpBook = _cursor.getString(_cursorIndexOfBook);
+        _item.setBook(_tmpBook);
+        final String _tmpList;
+        _tmpList = _cursor.getString(_cursorIndexOfList);
+        _item.setList(_tmpList);
+        final String _tmpDate;
+        _tmpDate = _cursor.getString(_cursorIndexOfDate);
+        _item.setDate(_tmpDate);
+        _result.add(_item);
       }
       return _result;
     } finally {

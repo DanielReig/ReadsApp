@@ -112,10 +112,10 @@ public class ProfileFragment extends Fragment {
                         //image.setImageURI(uri);
                         name.setText(nameUser);
                         age.setText(String.valueOf(ageUser));
-                        if(uri != null || uri != ""){
+                        if(uri != null){
                             ///??PROBLEMAS AL CARGAR LA IMAGEN
-                            //Uri u = Uri.parse(uri);
-                           // image.setImageURI(u);
+                            Uri u = Uri.parse(uri);
+                            image.setImageURI(u);
                         }
                     }
                 });
