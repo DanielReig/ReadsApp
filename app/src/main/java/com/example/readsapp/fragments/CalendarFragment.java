@@ -43,7 +43,7 @@ public class CalendarFragment extends Fragment {
         listbook = new ArrayList<String>();
         getBooks();
         adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,listTitle);
-
+        
         listener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
