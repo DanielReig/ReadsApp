@@ -33,7 +33,6 @@ public class CalendarFragment extends Fragment {
     private List<String> listbook;
     private ArrayAdapter<String> adapter;
     private int select;
-    private AdapterView.OnItemClickListener listener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,15 +41,8 @@ public class CalendarFragment extends Fragment {
         listTitle = new ArrayList<String>();
         listbook = new ArrayList<String>();
         getBooks();
-        adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,listTitle);
-        
-        listener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                select = position;
-            }
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, listTitle);
 
-        };
     }
 
     @Nullable
@@ -69,16 +61,30 @@ public class CalendarFragment extends Fragment {
         return v;
     }
 
-    private void selectedDay(String d){
+    private void selectedDay(String d) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_calendar_date,null);
+        View v = inflater.inflate(R.layout.dialog_calendar_date, null);
         TextView date = v.findViewById(R.id.tvDate);
         date.setText(d);
         Spinner books = v.findViewById(R.id.spinCal);
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                select = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                select = 0;
+            }
+        };
+
         //listener spinner
-        //books.setOnItemClickListener(listener);
+        books.setOnItemSelectedListener(listener);
         books.setAdapter(adapter);
+
         dialog.setView(v)
                 .setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
                     @Override
@@ -87,8 +93,8 @@ public class CalendarFragment extends Fragment {
                             @Override
                             public void run() {
                                 List<dbbook> dbbooks = database.BookDao().getdbook(listbook.get(select));
-                                for(int i = 0; i < dbbooks.size(); i++){
-                                    dbbook db  = dbbooks.get(i);
+                                for (int i = 0; i < dbbooks.size(); i++) {
+                                    dbbook db = dbbooks.get(i);
                                     db.setDate(d);
                                     database.BookDao().updateBook(db);
                                 }
@@ -111,12 +117,12 @@ public class CalendarFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<String>  list = database.BookDao().getAllBook();
+                List<String> list = database.BookDao().getAllBook();
                 Gson gson = new Gson();
-                if(list.size() > 0){
-                    for(int i = 0; i < list.size(); i++){
-                        Book book = gson.fromJson(list.get(i),Book.class);
-                        if(list.get(i) != null){
+                if (list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        Book book = gson.fromJson(list.get(i), Book.class);
+                        if (list.get(i) != null) {
                             listbook.add(list.get(i));
                             listTitle.add(book.getTitle());
                         }
