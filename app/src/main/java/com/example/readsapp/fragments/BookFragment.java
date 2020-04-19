@@ -67,8 +67,8 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_book, container, false);
+        button = v.findViewById(R.id.bCalen);
         if(textList == ""){
-           button = v.findViewById(R.id.bCalen);
            button.setText("Add");
            button.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -191,7 +191,7 @@ public class BookFragment extends Fragment {
                 Gson gson = new Gson();
                 String b = gson.toJson(book);
                 dbbook db = database.BookDao().getBooktolist(textList,b);
-                if(db.getDate() != null){
+                if(db!= null && db.getDate() != null){
                     date = db.getDate();
                 }
             }
