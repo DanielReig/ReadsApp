@@ -8,8 +8,10 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +47,12 @@ public class BookFragment extends Fragment {
     private String textList;
     private List<dbbook> listdb;
     private ArrayList<String> list;
+    private String date;
 
     public  BookFragment(String s, Book b){
         textList = s;
         book = b;
+        date = "";
     }
 
     @Override
@@ -56,6 +60,7 @@ public class BookFragment extends Fragment {
         super.onCreate(savedInstanceState);
         database = BookDatabase.getInstance(getContext());
         list = getLists();
+        Date();
     }
 
     @Nullable
@@ -71,6 +76,18 @@ public class BookFragment extends Fragment {
                    OnClickButton();
                }
            });
+        }else{
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(date != null){
+                        OnClickCalen();
+                    }else{
+                        Toast.makeText(getContext(), R.string.No_reading, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
         }
         bookCover = v.findViewById(R.id.bookCover);
         author = v.findViewById(R.id.tvauthor);
@@ -165,6 +182,36 @@ public class BookFragment extends Fragment {
             }
         }).start();
         return result;
+    }
+
+    private void Date(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson = new Gson();
+                String b = gson.toJson(book);
+                dbbook db = database.BookDao().getBooktolist(textList,b);
+                if(db.getDate() != null){
+                    date = db.getDate();
+                }
+            }
+        }).start();
+    }
+
+    private void OnClickCalen(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.dilaog_book_date, null);
+        TextView calen = v.findViewById(R.id.tvreadingBook);
+        calen.setText(date);
+        dialog.setView(v)
+                .setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        dialog.create().show();
     }
 
 }

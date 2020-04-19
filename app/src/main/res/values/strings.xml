@@ -52,4 +52,8 @@
     <string name="title_calendar_dialog">Create date book</string>
     <string name="cale_date">Date: </string>
     <string name="cale_book">Book: </string>
+
+    <!-- DILAOG READING -->
+    <string name="titlE_reading">Reading quote</string>
+    <string name="No_reading">No appointment reading</string>
 </resources>
