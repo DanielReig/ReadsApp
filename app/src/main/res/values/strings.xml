@@ -43,6 +43,7 @@
     <string name="name_user">Name: </string>
     <string name="age_user">Age: </string>
     <string name="button_setting">Save Data User</string>
+    <string name="No_user">you have to write your name and you years for save your user</string>
 
     <!-- CHALLENGES -->
     <string name="tab_current">CURRENT</string>
@@ -52,6 +53,7 @@
     <string name="title_calendar_dialog">Create date book</string>
     <string name="cale_date">Date: </string>
     <string name="cale_book">Book: </string>
+    <string name="No_books">First you have to save some book</string>
 
     <!-- DILAOG READING -->
     <string name="titlE_reading">Reading quote</string>

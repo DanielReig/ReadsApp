@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,17 +90,23 @@ public class CalendarFragment extends Fragment {
                 .setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                List<dbbook> dbbooks = database.BookDao().getdbook(listbook.get(select));
-                                for (int i = 0; i < dbbooks.size(); i++) {
-                                    dbbook db = dbbooks.get(i);
-                                    db.setDate(d);
-                                    database.BookDao().updateBook(db);
+                        if(listbook.size() > 0){
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    List<dbbook> dbbooks = database.BookDao().getdbook(listbook.get(select));
+                                    for (int i = 0; i < dbbooks.size(); i++) {
+                                        dbbook db = dbbooks.get(i);
+                                        db.setDate(d);
+                                        database.BookDao().updateBook(db);
+                                    }
                                 }
-                            }
-                        }).start();
+                            }).start();
+                        }else{
+                            Toast.makeText(getContext(), R.string.No_books, Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+
                     }
                 })
                 .setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {

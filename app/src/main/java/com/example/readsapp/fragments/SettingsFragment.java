@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ public class SettingsFragment extends Fragment {
     private EditText ageuser;
     private String name;
     private String age;
+    private boolean nouser;
 
     public SettingsFragment(){}
 
@@ -82,7 +84,7 @@ public class SettingsFragment extends Fragment {
     private void SaveDataUser(){
         String name = nameuser.getText().toString();
         String age = ageuser.getText().toString();
-        if(name != null || name != "" || age != null || age != ""){
+        if(!name.equals("") && !age.equals("")){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -97,11 +99,14 @@ public class SettingsFragment extends Fragment {
                     userDatabase.UserDao().addUser(usernew);
                 }
             }).start();
+            ProfileFragment settings = new ProfileFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, settings);
+            transaction.commit();
+        }else{
+            Toast.makeText(getContext(), R.string.No_user, Toast.LENGTH_LONG).show();
         }
-        ProfileFragment settings = new ProfileFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, settings);
-        transaction.commit();
+
 
     }
 
@@ -122,21 +127,21 @@ public class SettingsFragment extends Fragment {
         }).start();
     }
 
-    private void SelectedButton(){
+    private void SelectedButton() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 dbUser userold = userDatabase.UserDao().getUser();
-                if(userold == null){
+                if (userold == null) {
                     methodSarch = "title";
                     name = "";
                     age = "";
-                }else{
-                    if(userold.getName() == null){
-                        methodSarch = "title";
+                } else {
+                    if (userold.getName() == null) {
+                        methodSarch = userold.getSearch();
                         name = "";
                         age = "";
-                    }else{
+                    } else {
                         methodSarch = userold.getSearch();
                         name = userold.getName();
                         age = String.valueOf(userold.getAge());
