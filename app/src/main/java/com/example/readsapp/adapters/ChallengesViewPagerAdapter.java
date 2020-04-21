@@ -6,40 +6,38 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.readsapp.fragments.CompletedChallengesFragment;
+import com.example.readsapp.fragments.CurrentChallengesFragment;
 
 public class ChallengesViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final List<Fragment> mFragmentList;
-    private final List<String> mFragmentTitleList;
-
     public ChallengesViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
-        mFragmentList = new ArrayList<>();
-        mFragmentTitleList = new ArrayList<>();
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
-
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+        switch (position) {
+            case 0: return CurrentChallengesFragment.newInstance("hola", "adios");
+            case 1: return CompletedChallengesFragment.newInstance("hola", "adios");
+
+        }
+        return null;
     }
 
     @Override
     public int getCount() {
-        return mFragmentList.size();
+        return 2;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
-    }
-
-    public void addFragment(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+        switch (position) {
+            case 0: return "Current";
+            case 1: return "Completed";
+        }
+        return "";
     }
 }
