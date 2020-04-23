@@ -54,7 +54,7 @@ public class SettingsFragment extends Fragment {
         saveData = v.findViewById(R.id.bSaveDataUser);
         nameuser.setText(name);
         ageuser.setText(age);
-        if(methodSarch.compareTo("title") == 0){
+        if( methodSarch == null || methodSarch.compareTo("title") == 0){
             method.check(R.id.rbtitle);
         }else{
             method.check(R.id.rbisbn);
