@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
-import com.example.readsapp.models.ObjetoPrueba;
+import com.example.readsapp.models.SampleObject;
 
 import java.util.ArrayList;
 
 public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.ViewHolder> {
 
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
     //ArrayList<Challenge> mList;
-    ArrayList<ObjetoPrueba> mList;
+    private ArrayList<SampleObject> mList;
 
-    public AdapterChallenges(Context context, ArrayList<ObjetoPrueba> mList) {
+    public AdapterChallenges(Context context, ArrayList<SampleObject> mList) {
         this.inflater = LayoutInflater.from(context);
         this.mList = mList;
     }
@@ -51,9 +52,11 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
                     mList.get(position).getBook().getThumbnail(),
                     holder.cover);
         }*/
-        holder.nombre.setText(mList.get(position).getNombre());
-        holder.fecha.setText(mList.get(position).getFecha());
-        holder.img.setImageResource(mList.get(position).getImgID());
+        holder.title.setText(mList.get(position).getTitle());
+        holder.author.setText(mList.get(position).getAuthor());
+        holder.cover.setImageResource(mList.get(position).getCoverID());
+        String pctg = mList.get(position).getPercentageRead() + "%";
+        holder.percentage.setText(pctg);
         System.out.println("----!!!!------------------------>Finishing adapter's onBindViewHolder");
     }
 
@@ -61,13 +64,13 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
     public int getItemCount() {
         return mList.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         //public TextView title, author, percentage;
         //public ImageView cover;
-        public TextView nombre, fecha;
-        public ImageView img;
+        public TextView title, author, percentage;
+        public ImageView cover;
+        public Button button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,9 +78,11 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
             //author = itemView.findViewById(R.id.current_challenge_bookauthor);
             //percentage = itemView.findViewById(R.id.current_challenge_percentage);
             //cover = itemView.findViewById(R.id.current_challenge_bookcover);
-            nombre = itemView.findViewById(R.id.current_challenge_booktitle);
-            fecha = itemView.findViewById(R.id.current_challenge_bookauthor);
-            img = itemView.findViewById(R.id.current_challenge_bookcover);
+            title = itemView.findViewById(R.id.challenge_booktitle);
+            author = itemView.findViewById(R.id.challenge_bookauthor);
+            percentage = itemView.findViewById(R.id.challenge_percentage);
+            cover = itemView.findViewById(R.id.challenge_bookcover);
+            button = itemView.findViewById(R.id.challenge_increase);
         }
     }
 }

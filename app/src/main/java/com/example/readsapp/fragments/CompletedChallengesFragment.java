@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterChallenges;
-import com.example.readsapp.models.ObjetoPrueba;
+import com.example.readsapp.models.SampleObject;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class CompletedChallengesFragment extends Fragment {
     private AdapterChallenges adapter;
     private RecyclerView recyclerView;
     //private ArrayList<Challenge> mList;
-    private ArrayList<ObjetoPrueba> mList;
+    private ArrayList<SampleObject> mList;
 
     public CompletedChallengesFragment() {
         // Required empty public constructor
@@ -86,16 +86,15 @@ public class CompletedChallengesFragment extends Fragment {
         return view;
     }
 
-    private void populateList(ArrayList<ObjetoPrueba> mList) {
+    private void populateList(ArrayList<SampleObject> mList) {
         mList.clear();
 //        Book nBook = new Book();
 //        nBook.setTitle("Mi Libro de Prueba");
 //        Challenge nChallenge = new Challenge(nBook, 30);
 //        mList.add(nChallenge);
-        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
-        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
-        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
-        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
+        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
+        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
+        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
