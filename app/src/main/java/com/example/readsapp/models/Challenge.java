@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class Challenge {
     private Book book;
-    private Date start;
-    private Date finish;
+    private int days;
     private long pagesPerDay;
     private long pagesRead;
     private int percentageRead;
     private boolean isActive;
 
-    public Challenge(Book book, Date start, Date finish) {
+    public Challenge() {}
+
+    public Challenge(Book book, int days) {
         this.book = book;
-        this.start = start;
-        this.finish = finish;
-        pagesPerDay = (book.getVolumeInfo().getPageCount())/(daysBetween(start,finish));
+        this.days = days;
+        pagesPerDay = (book.getVolumeInfo().getPageCount())/days;
         pagesRead = 0;
         percentageRead = 0;
         isActive = true;
@@ -29,20 +29,12 @@ public class Challenge {
         this.book = book;
     }
 
-    public Date getStart() {
-        return start;
+    public int getDays() {
+        return days;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Date getFinish() {
-        return finish;
-    }
-
-    public void setFinish(Date finish) {
-        this.finish = finish;
+    public void setDays(int days) {
+        this.days = days;
     }
 
     public long getPagesPerDay() {

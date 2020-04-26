@@ -7,8 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
+import com.example.readsapp.adapters.AdapterChallenges;
+import com.example.readsapp.models.ObjetoPrueba;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,16 +26,19 @@ import com.example.readsapp.R;
  * create an instance of this fragment.
  */
 public class CompletedChallengesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private CompletedChallengesFragment.OnFragmentInteractionListener mListener;
+    private AdapterChallenges adapter;
+    private RecyclerView recyclerView;
+    //private ArrayList<Challenge> mList;
+    private ArrayList<ObjetoPrueba> mList;
 
     public CompletedChallengesFragment() {
         // Required empty public constructor
@@ -65,8 +74,28 @@ public class CompletedChallengesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_completed_challenges, container, false);
+        View view = inflater.inflate(R.layout.fragment_completed_challenges, container, false);
+        recyclerView = view.findViewById(R.id.completed_challenges_recycler);
+        mList = new ArrayList<>();
+        //populate list
+        populateList(mList);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new AdapterChallenges(getContext(), mList);
+        recyclerView.setAdapter(adapter);
+        return view;
+    }
+
+    private void populateList(ArrayList<ObjetoPrueba> mList) {
+        mList.clear();
+//        Book nBook = new Book();
+//        nBook.setTitle("Mi Libro de Prueba");
+//        Challenge nChallenge = new Challenge(nBook, 30);
+//        mList.add(nChallenge);
+        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
+        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
+        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
+        mList.add(new ObjetoPrueba("Mi Objeto de Prueba", "26/04/2020",R.drawable.ic_launcher_background));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -74,23 +103,6 @@ public class CompletedChallengesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     /**
