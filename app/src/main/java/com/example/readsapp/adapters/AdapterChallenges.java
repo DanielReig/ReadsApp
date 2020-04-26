@@ -18,13 +18,14 @@ import com.example.readsapp.services.GoogleBookService;
 import java.util.ArrayList;
 
 public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.ViewHolder> {
-
     private LayoutInflater inflater;
     private ArrayList<ChallengeItem> mList;
+    private AdapterChallenges.OnItemClickListener mListener;
 
-    public AdapterChallenges(Context context, ArrayList<ChallengeItem> mList) {
+    public AdapterChallenges(Context context, ArrayList<ChallengeItem> mList, AdapterChallenges.OnItemClickListener mListener) {
         this.inflater = LayoutInflater.from(context);
         this.mList = mList;
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -50,6 +51,12 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
     public int getItemCount() {
         return mList.size();
     }
+
+    public void removeItem(int position) {
+        mList.remove(position);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, percentage;
         public ImageView cover;
@@ -61,6 +68,18 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
             percentage = itemView.findViewById(R.id.challenge_percentage);
             cover = itemView.findViewById(R.id.challenge_bookcover);
             button = itemView.findViewById(R.id.challenge_increase);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mListener.onItemLongClickListener(getAdapterPosition());
+                    return true;
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemLongClickListener(int position);
     }
 }

@@ -1,11 +1,14 @@
 package com.example.readsapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,11 +45,13 @@ public class CompletedChallengesFragment extends Fragment {
     private String mParam2;
 
     private BookDatabase db;
+    private Gson gson;
 
     private CompletedChallengesFragment.OnFragmentInteractionListener mListener;
     private AdapterChallenges adapter;
     private RecyclerView recyclerView;
     private ArrayList<ChallengeItem> mList;
+    private List<dbbook> dbList;
 
     public CompletedChallengesFragment() {
         // Required empty public constructor
@@ -74,6 +79,7 @@ public class CompletedChallengesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = BookDatabase.getInstance(getContext());
+        gson = new Gson();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -90,7 +96,41 @@ public class CompletedChallengesFragment extends Fragment {
         getChallengesFromDB(mList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new AdapterChallenges(getContext(), mList);
+        adapter = new AdapterChallenges(getContext(), mList, new AdapterChallenges.OnItemClickListener() {
+            @Override
+            public void onItemLongClickListener(int position) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setMessage(R.string.dialog_delete_challenge)
+                        .setPositiveButton(R.string.okDeleteDialog, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        int index = position;
+                                        final dbbook dbBook = dbList.get(++index);
+                                        dbBook.setChallenge(null);
+                                        db.BookDao().updateBook(dbBook);
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                adapter.removeItem(position);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
+                                    }
+                                }).start();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancelDeleteDialog, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                dialog.create().show();
+            }
+        });
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -100,10 +140,9 @@ public class CompletedChallengesFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Gson gson = new Gson();
-                List<dbbook> dbbookList = db.BookDao().getCompletedChallenges();
-                if(!dbbookList.isEmpty()) {
-                    for(dbbook b : dbbookList) {
+                dbList = db.BookDao().getCompletedChallenges();
+                if(!dbList.isEmpty()) {
+                    for(dbbook b : dbList) {
                         ChallengeItem nItem = new ChallengeItem();
                         Book book = gson.fromJson(b.getBook(), Book.class);
                         Challenge challenge = gson.fromJson(b.getChallenge(), Challenge.class);
