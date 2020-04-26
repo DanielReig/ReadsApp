@@ -46,6 +46,9 @@ public interface DaoBook {
     @Query("SELECT * FROM MyBooks WHERE book " + "= :book")
     List<dbbook> getdbook(String book);
 
+    @Query("SELECT * FROM MyBooks WHERE challenge IS NOT NULL")
+    List<dbbook> getAllChallenges();
+
     @Update
     void updateBook(dbbook book);
 

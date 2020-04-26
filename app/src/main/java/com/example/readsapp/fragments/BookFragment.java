@@ -65,8 +65,11 @@ public class BookFragment extends Fragment implements NewChallengeDialog.NewChal
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_book, container, false);
         button = v.findViewById(R.id.bCalen);
+        fab = v.findViewById(R.id.fab_new_challenge);
+        fab.setVisibility(View.VISIBLE);
         if(textList == ""){
            button.setText("Add");
+           fab.setVisibility(View.INVISIBLE);
            button.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -97,7 +100,6 @@ public class BookFragment extends Fragment implements NewChallengeDialog.NewChal
         InfBook();
 
         /** FLOATING ACTION BUTTON*/
-        fab = v.findViewById(R.id.fab_new_challenge);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +230,20 @@ public class BookFragment extends Fragment implements NewChallengeDialog.NewChal
 
     @Override
     public void applyDays(int days) {
-        Challenge nChallenge = new Challenge(days, book.getPageCount());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Challenge nChallenge = new Challenge(days, book.getPageCount());
+                Gson gson = new Gson();
+                String stringChallenge = gson.toJson(nChallenge);
+                String stringBook = gson.toJson(book);
+                List<dbbook> dbbooks = database.BookDao().getdbook(stringBook);
+                for(dbbook b : dbbooks) {
+                    b.setChallenge(stringChallenge);
+                    database.BookDao().updateBook(b);
+                }
+            }
+        }).start();
         Toast.makeText(getContext(), "Challenge created with " + days + " days", Toast.LENGTH_SHORT).show();
     }
 }

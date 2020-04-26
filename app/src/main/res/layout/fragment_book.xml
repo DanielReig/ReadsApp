@@ -178,7 +178,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
         android:clickable="true"
         android:src="@drawable/ic_flash_on_black_24dp"
         app:elevation="6dp"

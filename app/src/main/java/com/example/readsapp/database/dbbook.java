@@ -22,6 +22,9 @@ public class dbbook {
     @ColumnInfo(name = "Date")
     private String date;
 
+    @ColumnInfo(name = "challenge")
+    private String challenge;
+
     public dbbook(){}
 
     public dbbook(String b,String s){
@@ -61,5 +64,12 @@ public class dbbook {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getChallenge() {
+        return challenge;
+    }
+    public void setChallenge(String challenge) {
+        this.challenge = challenge;
     }
 }
