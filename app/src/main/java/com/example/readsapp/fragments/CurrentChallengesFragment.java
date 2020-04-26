@@ -13,9 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterChallenges;
+import com.example.readsapp.database.BookDatabase;
+import com.example.readsapp.database.dbbook;
+import com.example.readsapp.interfaz.ChallengeItem;
+import com.example.readsapp.interfaz.bookItem;
+import com.example.readsapp.models.Book;
+import com.example.readsapp.models.Challenge;
 import com.example.readsapp.models.SampleObject;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,11 +42,12 @@ public class CurrentChallengesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private BookDatabase db;
+
     private OnFragmentInteractionListener mListener;
     private AdapterChallenges adapter;
     private RecyclerView recyclerView;
-    //private ArrayList<Challenge> mList;
-    private ArrayList<SampleObject> mList;
+    private ArrayList<ChallengeItem> mList;
 
     public CurrentChallengesFragment() {
         // Required empty public constructor
@@ -65,6 +74,7 @@ public class CurrentChallengesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = BookDatabase.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -78,7 +88,7 @@ public class CurrentChallengesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.current_challenges_recycler);
         mList = new ArrayList<>();
         //populate list
-        populateList(mList);
+        getChallengesFromDB(mList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AdapterChallenges(getContext(), mList);
@@ -86,18 +96,34 @@ public class CurrentChallengesFragment extends Fragment {
         return view;
     }
 
-    private void populateList(ArrayList<SampleObject> mList) {
+    private void getChallengesFromDB(ArrayList<ChallengeItem> mList) {
         mList.clear();
-//        Book nBook = new Book();
-//        nBook.setTitle("Mi Libro de Prueba");
-//        Challenge nChallenge = new Challenge(nBook, 30);
-//        mList.add(nChallenge);
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
-        mList.add(new SampleObject("Mi Objeto de Prueba", "Autor de Prueba",R.drawable.ic_launcher_background, (long)555, 30));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson = new Gson();
+                List<dbbook> dbbookList = db.BookDao().getAllChallenges();
+                if(!dbbookList.isEmpty()) {
+                    for(dbbook b : dbbookList) {
+                        ChallengeItem nItem = new ChallengeItem();
+                        Book book = gson.fromJson(b.getBook(), Book.class);
+                        Challenge challenge = gson.fromJson(b.getChallenge(), Challenge.class);
+                        if((book.getVolumeInfo() != null) && (book.getVolumeInfo().getImageLinks() != null)) {
+                            nItem.setUrl(book.getImageLinks().getThumbnail());
+                        }
+                        nItem.setTitle(book.getTitle());
+                        nItem.setPercentage(challenge.getPercentageRead());
+                        mList.add(nItem);
+                    }
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

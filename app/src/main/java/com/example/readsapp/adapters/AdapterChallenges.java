@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
+import com.example.readsapp.interfaz.ChallengeItem;
 import com.example.readsapp.models.SampleObject;
+import com.example.readsapp.services.GoogleBookService;
 
 import java.util.ArrayList;
 
@@ -20,9 +22,9 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
 
     private LayoutInflater inflater;
     //ArrayList<Challenge> mList;
-    private ArrayList<SampleObject> mList;
+    private ArrayList<ChallengeItem> mList;
 
-    public AdapterChallenges(Context context, ArrayList<SampleObject> mList) {
+    public AdapterChallenges(Context context, ArrayList<ChallengeItem> mList) {
         this.inflater = LayoutInflater.from(context);
         this.mList = mList;
     }
@@ -39,25 +41,14 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        System.out.println("----!!!!------------------------>Starting adapter's onBindViewHolder");
-        //holder.title.setText(mList.get(position).getBook().getTitle());
-        //holder.author.setText(mList.get(position).getBook().getAuthors().toString());
-        //String pctg = mList.get(position).getPercentageRead() + "%";
-        //holder.percentage.setText(pctg);
-
-        /*
-        GoogleBookService service = new GoogleBookService();
-        if(mList.get(position).getBook().getThumbnail() != null) {
-            service.setBookThumbnailAdapter(
-                    mList.get(position).getBook().getThumbnail(),
-                    holder.cover);
-        }*/
         holder.title.setText(mList.get(position).getTitle());
-        holder.author.setText(mList.get(position).getAuthor());
-        holder.cover.setImageResource(mList.get(position).getCoverID());
-        String pctg = mList.get(position).getPercentageRead() + "%";
+        String pctg = mList.get(position).getPercentage() + "%";
         holder.percentage.setText(pctg);
-        System.out.println("----!!!!------------------------>Finishing adapter's onBindViewHolder");
+
+        GoogleBookService service = new GoogleBookService();
+        if(mList.get(position).getUrl() != null) {
+            service.setBookThumbnailAdapter(mList.get(position).getUrl(), holder.cover);
+        }
     }
 
     @Override
@@ -68,7 +59,7 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
 
         //public TextView title, author, percentage;
         //public ImageView cover;
-        public TextView title, author, percentage;
+        public TextView title, percentage;
         public ImageView cover;
         public Button button;
 
@@ -79,7 +70,6 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
             //percentage = itemView.findViewById(R.id.current_challenge_percentage);
             //cover = itemView.findViewById(R.id.current_challenge_bookcover);
             title = itemView.findViewById(R.id.challenge_booktitle);
-            author = itemView.findViewById(R.id.challenge_bookauthor);
             percentage = itemView.findViewById(R.id.challenge_percentage);
             cover = itemView.findViewById(R.id.challenge_bookcover);
             button = itemView.findViewById(R.id.challenge_increase);
