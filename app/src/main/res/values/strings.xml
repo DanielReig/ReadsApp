@@ -49,6 +49,9 @@
     <string name="tab_completed">COMPLETED</string>
     <string name="add_daily">DAILY READ COMPLETED</string>
 
+    <!-- CHALLENGES -->
+    <string name="new_challenge_days">Days to complete challenge…</string>
+
     <!-- CALENDAR -->
     <string name="title_calendar_dialog">Create date book</string>
     <string name="cale_date">Date: </string>

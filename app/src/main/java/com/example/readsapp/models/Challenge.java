@@ -3,8 +3,8 @@ package com.example.readsapp.models;
 import java.util.Date;
 
 public class Challenge {
-    private Book book;
     private int days;
+    private long numPages;
     private long pagesPerDay;
     private long pagesRead;
     private int percentageRead;
@@ -12,21 +12,13 @@ public class Challenge {
 
     public Challenge() {}
 
-    public Challenge(Book book, int days) {
-        this.book = book;
+    public Challenge(int days, long numPages) {
         this.days = days;
-        pagesPerDay = (book.getVolumeInfo().getPageCount())/days;
-        pagesRead = 0;
-        percentageRead = 0;
+        this.numPages = numPages;
+        this.pagesPerDay = numPages/days;
+        this.pagesRead = 0;
+        this.percentageRead = 0;
         isActive = true;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public int getDays() {
@@ -71,8 +63,8 @@ public class Challenge {
 
     public void increaseReading() {
         pagesRead += pagesPerDay;
-        percentageRead += pagesRead/(book.getVolumeInfo().getPageCount());
-        if(pagesRead >= book.getVolumeInfo().getPageCount()) isActive = false;
+        percentageRead = ((int)pagesPerDay*100)/(int)numPages;
+        if(pagesRead >= numPages) isActive = false;
     }
 
     private int daysBetween(Date d1, Date d2){

@@ -2,16 +2,12 @@ package com.example.readsapp.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,18 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.readsapp.R;
-import com.example.readsapp.adapters.AdapterList;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
-import com.example.readsapp.interfaz.Item;
 import com.example.readsapp.models.Book;
+import com.example.readsapp.models.Challenge;
 import com.example.readsapp.services.GoogleBookService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookFragment extends Fragment {
+public class BookFragment extends Fragment implements NewChallengeDialog.NewChallengeDialogListener {
     private boolean newBook = false;
     private Book book;
     private TextView author;
@@ -48,6 +44,7 @@ public class BookFragment extends Fragment {
     private List<dbbook> listdb;
     private ArrayList<String> list;
     private String date;
+    private FloatingActionButton fab;
 
     public  BookFragment(String s, Book b){
         textList = s;
@@ -98,6 +95,15 @@ public class BookFragment extends Fragment {
         topic = v.findViewById(R.id.tvtopic);
         summary = v.findViewById(R.id.tvsumnary);
         InfBook();
+
+        /** FLOATING ACTION BUTTON*/
+        fab = v.findViewById(R.id.fab_new_challenge);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCreateChallengeDialog();
+            }
+        });
 
         return v;
     }
@@ -214,4 +220,15 @@ public class BookFragment extends Fragment {
         dialog.create().show();
     }
 
+    public void openCreateChallengeDialog() {
+        NewChallengeDialog newChallengeDialog = new NewChallengeDialog();
+        newChallengeDialog.setTargetFragment(BookFragment.this, 1);
+        newChallengeDialog.show(getFragmentManager(), "New Challenge dialog");
+    }
+
+    @Override
+    public void applyDays(int days) {
+        Challenge nChallenge = new Challenge(days, book.getPageCount());
+        Toast.makeText(getContext(), "Challenge created with " + days + " days", Toast.LENGTH_SHORT).show();
+    }
 }
