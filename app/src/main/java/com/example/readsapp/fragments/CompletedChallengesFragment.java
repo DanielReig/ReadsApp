@@ -101,7 +101,7 @@ public class CompletedChallengesFragment extends Fragment {
             @Override
             public void run() {
                 Gson gson = new Gson();
-                List<dbbook> dbbookList = db.BookDao().getAllChallenges();
+                List<dbbook> dbbookList = db.BookDao().getCompletedChallenges();
                 if(!dbbookList.isEmpty()) {
                     for(dbbook b : dbbookList) {
                         ChallengeItem nItem = new ChallengeItem();

@@ -240,6 +240,7 @@ public class BookFragment extends Fragment implements NewChallengeDialog.NewChal
                 List<dbbook> dbbooks = database.BookDao().getdbook(stringBook);
                 for(dbbook b : dbbooks) {
                     b.setChallenge(stringChallenge);
+                    b.setIsCompleted(0);
                     database.BookDao().updateBook(b);
                 }
             }

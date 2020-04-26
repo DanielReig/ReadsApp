@@ -25,6 +25,10 @@ public class dbbook {
     @ColumnInfo(name = "challenge")
     private String challenge;
 
+    @ColumnInfo(name = "isCompleted")
+    private int isCompleted;
+
+
     public dbbook(){}
 
     public dbbook(String b,String s){
@@ -69,7 +73,16 @@ public class dbbook {
     public String getChallenge() {
         return challenge;
     }
+
     public void setChallenge(String challenge) {
         this.challenge = challenge;
+    }
+
+    public int getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(int isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }

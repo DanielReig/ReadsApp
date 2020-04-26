@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.interfaz.ChallengeItem;
-import com.example.readsapp.models.SampleObject;
 import com.example.readsapp.services.GoogleBookService;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.ViewHolder> {
 
     private LayoutInflater inflater;
-    //ArrayList<Challenge> mList;
     private ArrayList<ChallengeItem> mList;
 
     public AdapterChallenges(Context context, ArrayList<ChallengeItem> mList) {
@@ -32,10 +30,7 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("----!!!!------------------------>Starting adapter's onCreateViewHolder");
         View view = inflater.inflate(R.layout.challenge_item, parent, false);
-
-        System.out.println("----!!!!------------------------>Finishing adapter's onCreateViewHolder");
         return new ViewHolder(view);
     }
 
@@ -56,19 +51,12 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
         return mList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        //public TextView title, author, percentage;
-        //public ImageView cover;
         public TextView title, percentage;
         public ImageView cover;
         public Button button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            //title = itemView.findViewById(R.id.current_challenge_booktitle);
-            //author = itemView.findViewById(R.id.current_challenge_bookauthor);
-            //percentage = itemView.findViewById(R.id.current_challenge_percentage);
-            //cover = itemView.findViewById(R.id.current_challenge_bookcover);
             title = itemView.findViewById(R.id.challenge_booktitle);
             percentage = itemView.findViewById(R.id.challenge_percentage);
             cover = itemView.findViewById(R.id.challenge_bookcover);

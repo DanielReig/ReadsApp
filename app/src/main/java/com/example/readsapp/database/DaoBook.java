@@ -49,6 +49,12 @@ public interface DaoBook {
     @Query("SELECT * FROM MyBooks WHERE challenge IS NOT NULL")
     List<dbbook> getAllChallenges();
 
+    @Query("SELECT * FROM MyBooks WHERE challenge IS NOT NULL AND isCompleted = 0")
+    List<dbbook> getCurrentChallenges();
+
+    @Query("SELECT * FROM MyBooks WHERE challenge IS NOT NULL AND isCompleted = 1")
+    List<dbbook> getCompletedChallenges();
+
     @Update
     void updateBook(dbbook book);
 
