@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readsapp.R;
 import com.example.readsapp.adapters.AdapterChallenges;
+import com.example.readsapp.adapters.AdapterCompletedChallenges;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
 import com.example.readsapp.interfaz.ChallengeItem;
@@ -46,7 +47,7 @@ public class CompletedChallengesFragment extends Fragment {
     private Gson gson;
 
     private CompletedChallengesFragment.OnFragmentInteractionListener mListener;
-    private AdapterChallenges adapter;
+    private AdapterCompletedChallenges adapter;
     private RecyclerView recyclerView;
     private ArrayList<ChallengeItem> mList;
     private List<dbbook> dbList;
@@ -94,7 +95,7 @@ public class CompletedChallengesFragment extends Fragment {
         getChallengesFromDB(mList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new AdapterChallenges(getContext(), mList, new AdapterChallenges.OnItemClickListener() {
+        adapter = new AdapterCompletedChallenges(getContext(), mList, new AdapterCompletedChallenges.OnItemClickListener() {
             @Override
             public void onItemLongClickListener(int position) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
@@ -106,7 +107,7 @@ public class CompletedChallengesFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         int index = position;
-                                        final dbbook dbBook = dbList.get(++index);
+                                        final dbbook dbBook = dbList.get(index);
                                         dbBook.setChallenge(null);
                                         db.BookDao().updateBook(dbBook);
                                         getActivity().runOnUiThread(new Runnable() {
@@ -127,11 +128,6 @@ public class CompletedChallengesFragment extends Fragment {
                             }
                         });
                 dialog.create().show();
-            }
-
-            @Override
-            public void onIncreasePercentageListener(int position) {
-                //Does nothing because button is hiden
             }
         });
         recyclerView.setAdapter(adapter);
