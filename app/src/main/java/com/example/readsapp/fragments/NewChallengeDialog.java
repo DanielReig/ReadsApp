@@ -45,7 +45,7 @@ public class NewChallengeDialog extends AppCompatDialogFragment {
 
         numberPicker = view.findViewById(R.id.new_challenge_numberPicker);
         numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(90);
+        numberPicker.setMaxValue(30);
 
         return builder.create();
     }

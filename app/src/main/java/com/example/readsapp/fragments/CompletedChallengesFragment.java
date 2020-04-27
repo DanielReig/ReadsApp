@@ -130,6 +130,11 @@ public class CompletedChallengesFragment extends Fragment {
                         });
                 dialog.create().show();
             }
+
+            @Override
+            public void onIncreasePercentageListener(int position) {
+                //Does nothing because button is hiden
+            }
         });
         recyclerView.setAdapter(adapter);
         return view;

@@ -109,14 +109,13 @@ public class CurrentChallengesFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         int index = position;
-                                        final dbbook dbBook = dbList.get(++index);
+                                        final dbbook dbBook = dbList.get(index);
                                         dbBook.setChallenge(null);
                                         db.BookDao().updateBook(dbBook);
                                         getActivity().runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 adapter.removeItem(position);
-                                                adapter.notifyDataSetChanged();
                                             }
                                         });
                                     }
@@ -130,6 +129,30 @@ public class CurrentChallengesFragment extends Fragment {
                             }
                         });
                 dialog.create().show();
+            }
+
+            @Override
+            public void onIncreasePercentageListener(int position) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int index = position;
+                        final dbbook dbBook = dbList.get(index);
+                        Challenge nChallenge = gson.fromJson(dbBook.getChallenge(), Challenge.class);
+                        nChallenge.increaseReading();
+                        if(nChallenge.getPercentageRead() >= 100) {
+                            dbBook.setIsCompleted(1);
+                        }
+                        dbBook.setChallenge(gson.toJson(nChallenge));
+                        db.BookDao().updateBook(dbBook);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.increasePercentageItem(index, nChallenge.getPercentageRead());
+                            }
+                        });
+                    }
+                }).start();
             }
         });
         recyclerView.setAdapter(adapter);

@@ -7,7 +7,7 @@ public class Challenge {
     private long numPages;
     private long pagesPerDay;
     private long pagesRead;
-    private int percentageRead;
+    private double percentageRead;
     private boolean isActive;
 
     public Challenge() {}
@@ -45,11 +45,11 @@ public class Challenge {
         this.pagesRead = pagesRead;
     }
 
-    public int getPercentageRead() {
+    public double getPercentageRead() {
         return percentageRead;
     }
 
-    public void setPercentageRead(int percentageRead) {
+    public void setPercentageRead(double percentageRead) {
         this.percentageRead = percentageRead;
     }
 
@@ -62,12 +62,14 @@ public class Challenge {
     }
 
     public void increaseReading() {
-        pagesRead += pagesPerDay;
-        percentageRead = ((int)pagesPerDay*100)/(int)numPages;
-        if(pagesRead >= numPages) isActive = false;
-    }
-
-    private int daysBetween(Date d1, Date d2){
-        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+        if(isActive) {
+            pagesRead += pagesPerDay;
+            percentageRead += ((pagesPerDay*100)/numPages);
+            if(pagesRead >= numPages) {
+                isActive = false;
+                pagesRead = numPages;
+                percentageRead = 100;
+            }
+        }
     }
 }

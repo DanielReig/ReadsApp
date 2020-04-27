@@ -38,7 +38,7 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(mList.get(position).getTitle());
-        String pctg = mList.get(position).getPercentage() + "%";
+        String pctg = (int)mList.get(position).getPercentage() + "%";
         holder.percentage.setText(pctg);
 
         GoogleBookService service = new GoogleBookService();
@@ -54,8 +54,14 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
 
     public void removeItem(int position) {
         mList.remove(position);
-        notifyDataSetChanged();
+        notifyItemRemoved(position);
     }
+
+    public void increasePercentageItem(int position, double percentage) {
+        mList.get(position).setPercentage(percentage);
+        notifyItemChanged(position);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, percentage;
@@ -76,10 +82,18 @@ public class AdapterChallenges extends RecyclerView.Adapter<AdapterChallenges.Vi
                     return true;
                 }
             });
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onIncreasePercentageListener(getAdapterPosition());
+                }
+            });
         }
     }
 
     public interface OnItemClickListener {
         void onItemLongClickListener(int position);
+        void onIncreasePercentageListener(int position);
     }
 }

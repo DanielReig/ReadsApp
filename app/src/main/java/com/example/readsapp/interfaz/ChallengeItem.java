@@ -6,11 +6,11 @@ public class ChallengeItem {
     private String title;
     private ImageView cover;
     private String url;
-    private int percentage;
+    private double percentage;
 
     public ChallengeItem() {}
 
-    public ChallengeItem(String title, ImageView cover, String url, int percentage) {
+    public ChallengeItem(String title, ImageView cover, String url, double percentage) {
         this.title = title;
         this.cover = cover;
         this.url = url;
@@ -41,11 +41,11 @@ public class ChallengeItem {
         this.url = url;
     }
 
-    public int getPercentage() {
+    public double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(int percentage) {
+    public void setPercentage(double percentage) {
         this.percentage = percentage;
     }
 }
