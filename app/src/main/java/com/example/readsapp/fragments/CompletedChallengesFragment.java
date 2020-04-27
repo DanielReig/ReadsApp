@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.example.readsapp.database.dbbook;
 import com.example.readsapp.interfaz.ChallengeItem;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.Challenge;
-import com.example.readsapp.models.SampleObject;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -89,8 +87,8 @@ public class CompletedChallengesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_current_challenges, container, false);
-        recyclerView = view.findViewById(R.id.current_challenges_recycler);
+        View view = inflater.inflate(R.layout.fragment_completed_challenges, container, false);
+        recyclerView = view.findViewById(R.id.completed_challenges_recycler);
         mList = new ArrayList<>();
         //populate list
         getChallengesFromDB(mList);

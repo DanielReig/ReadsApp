@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +17,8 @@ import com.example.readsapp.adapters.AdapterChallenges;
 import com.example.readsapp.database.BookDatabase;
 import com.example.readsapp.database.dbbook;
 import com.example.readsapp.interfaz.ChallengeItem;
-import com.example.readsapp.interfaz.bookItem;
 import com.example.readsapp.models.Book;
 import com.example.readsapp.models.Challenge;
-import com.example.readsapp.models.SampleObject;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
